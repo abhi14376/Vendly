@@ -14,7 +14,7 @@ export const signupSchema = z
     email: z.string().trim().min(1, "Email is required.").email("Please enter a valid email address."),
     password: z.string().min(8, "Password must be at least 8 characters."),
     confirmPassword: z.string().min(1, "Please confirm your password."),
-    role: z.enum(["lead", "vendor"], { required_error: "Please select a role." }),
+    role: z.enum(["admin", "lead", "vendor"], { required_error: "Please select a role." }),
     mobile: z
       .string()
       .trim()
