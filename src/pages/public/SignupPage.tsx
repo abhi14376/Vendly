@@ -169,8 +169,7 @@ export function SignupPage() {
         id: authData.user.id,
         email: data.email,
         role: roleParam,
-        first_name: data.firstName,
-        last_name: data.lastName
+        full_name: `${data.firstName} ${data.lastName}`
       });
 
       if (profileError) {
@@ -371,6 +370,10 @@ export function SignupPage() {
             />
 
             <input type="hidden" {...register("role")} />
+
+            <div className="text-sm text-slate-500 dark:text-slate-400 mt-2 mb-4 text-center">
+              By creating an account, you agree to our <Link to="/terms" className="text-primary-600 hover:text-primary-500 hover:underline">Terms of Service</Link>.
+            </div>
 
             <Button type="submit" fullWidth loading={isLoading} className="mt-2">
               Create Account
