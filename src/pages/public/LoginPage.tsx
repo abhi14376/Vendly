@@ -148,16 +148,14 @@ export function LoginPage() {
             </Button>
           </form>
         </CardContent>
-        {roleParam !== "admin" && (
-          <CardFooter className="flex flex-col space-y-4 text-center text-sm text-slate-500 dark:text-slate-400">
-            <div>
-              Don&apos;t have an account?{" "}
-              <Link to="/signup" className="font-semibold text-primary-600 hover:text-primary-500 hover:underline">
-                Sign up
-              </Link>
-            </div>
-          </CardFooter>
-        )}
+        <CardFooter className="flex flex-col space-y-4 text-center text-sm text-slate-500 dark:text-slate-400">
+          <div>
+            Don&apos;t have an account?{" "}
+            <Link to={`/signup${roleParam ? `?role=${roleParam}` : ''}`} className="font-semibold text-primary-600 hover:text-primary-500 hover:underline">
+              Sign up
+            </Link>
+          </div>
+        </CardFooter>
       </Card>
 
       {/* Developer Quick Bypass Sandbox Panel - Only visible in development */}

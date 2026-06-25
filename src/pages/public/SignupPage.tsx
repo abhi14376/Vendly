@@ -16,7 +16,8 @@ export function SignupPage() {
   const navigate = useNavigate();
   const login = useAuthStore((state) => state.login);
 
-  const roleParam = "lead";
+  const [searchParams] = useSearchParams();
+  const roleParam = searchParams.get("role") === "admin" ? "admin" : "lead";
 
   const [step, setStep] = useState<"signup" | "verification">("signup");
   const [pendingData, setPendingData] = useState<SignupFormValues | null>(null);
@@ -50,7 +51,7 @@ export function SignupPage() {
       mobile: "",
       password: "",
       confirmPassword: "",
-      role: "lead",
+      role: roleParam as "admin" | "lead" | "vendor",
     },
   });
 
@@ -105,7 +106,7 @@ export function SignupPage() {
             password: data.password,
             fullName: `${data.firstName} ${data.lastName}`,
             mobile: data.mobile,
-            role: "lead",
+            role: roleParam,
             verificationStatus: "pending",
           });
           localStorage.setItem("vendly-local-users", JSON.stringify(localUsers));
@@ -141,7 +142,7 @@ export function SignupPage() {
           id: `local-${data.email}`,
           email: data.email,
           fullName: `${data.firstName} ${data.lastName}`,
-          role: "lead",
+          role: roleParam,
           verificationStatus: "pending",
         });
         toast.success("Account created and verified successfully (Local Sandbox Mode)!");
@@ -167,7 +168,7 @@ export function SignupPage() {
       const { error: profileError } = await supabase.from('profiles').insert({
         id: authData.user.id,
         email: data.email,
-        role: "lead",
+        role: roleParam,
         first_name: data.firstName,
         last_name: data.lastName
       });
