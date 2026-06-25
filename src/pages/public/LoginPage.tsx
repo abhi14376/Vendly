@@ -148,35 +148,39 @@ export function LoginPage() {
             </Button>
           </form>
         </CardContent>
-        <CardFooter className="flex flex-col space-y-4 text-center text-sm text-slate-500 dark:text-slate-400">
-          <div>
-            Don&apos;t have an account?{" "}
-            <Link to="/signup" className="font-semibold text-primary-600 hover:text-primary-500 hover:underline">
-              Sign up
-            </Link>
-          </div>
-        </CardFooter>
+        {roleParam !== "admin" && (
+          <CardFooter className="flex flex-col space-y-4 text-center text-sm text-slate-500 dark:text-slate-400">
+            <div>
+              Don&apos;t have an account?{" "}
+              <Link to="/signup" className="font-semibold text-primary-600 hover:text-primary-500 hover:underline">
+                Sign up
+              </Link>
+            </div>
+          </CardFooter>
+        )}
       </Card>
 
-      {/* Developer Quick Bypass Sandbox Panel */}
-      <Card className="w-full max-w-md border-dashed border-primary-200 bg-primary-50/10 dark:border-primary-900/50 dark:bg-primary-950/5">
-        <CardHeader className="py-4 text-center">
-          <CardTitle className="text-sm font-semibold text-primary-700 dark:text-primary-400">
-            Developer Sandbox Quick-Login
-          </CardTitle>
-          <CardDescription className="text-xs">
-            Test any portal immediately by bypassing external auth servers.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="grid grid-cols-2 gap-2 pb-4">
-          <Button size="sm" variant="outline" onClick={() => handleDemoLogin("admin")} className="text-xs border-primary-100 hover:bg-primary-50 dark:border-primary-900/50 dark:hover:bg-primary-950/20">
-            Admin
-          </Button>
-          <Button size="sm" variant="outline" onClick={() => handleDemoLogin("lead")} className="text-xs border-primary-100 hover:bg-primary-50 dark:border-primary-900/50 dark:hover:bg-primary-950/20">
-            Lead
-          </Button>
-        </CardContent>
-      </Card>
+      {/* Developer Quick Bypass Sandbox Panel - Only visible in development */}
+      {import.meta.env.DEV && (
+        <Card className="w-full max-w-md border-dashed border-primary-200 bg-primary-50/10 dark:border-primary-900/50 dark:bg-primary-950/5">
+          <CardHeader className="py-4 text-center">
+            <CardTitle className="text-sm font-semibold text-primary-700 dark:text-primary-400">
+              Developer Sandbox Quick-Login
+            </CardTitle>
+            <CardDescription className="text-xs">
+              Test any portal immediately by bypassing external auth servers.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="grid grid-cols-2 gap-2 pb-4">
+            <Button size="sm" variant="outline" onClick={() => handleDemoLogin("admin")} className="text-xs border-primary-100 hover:bg-primary-50 dark:border-primary-900/50 dark:hover:bg-primary-950/20">
+              Admin
+            </Button>
+            <Button size="sm" variant="outline" onClick={() => handleDemoLogin("lead")} className="text-xs border-primary-100 hover:bg-primary-50 dark:border-primary-900/50 dark:hover:bg-primary-950/20">
+              Lead
+            </Button>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }
