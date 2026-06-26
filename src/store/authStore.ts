@@ -43,26 +43,25 @@ export const useAuthStore = create<AuthState>()(
         import("@/lib/supabase").then(({ supabase }) => {
           if (!supabase) return;
           
-          // Get initial session
+            // Get initial session
           supabase.auth.getSession().then(({ data: { session } }) => {
             if (session?.user) {
               // Fetch user profile to get role
               supabase.from('profiles').select('*').eq('id', session.user.id).single()
                 .then(({ data: profile }) => {
-                  if (profile) {
-                    set({
-                      accessToken: session.access_token,
-                      isAuthenticated: true,
-                      userRole: profile.role,
-                      currentUser: {
-                        id: session.user.id,
-                        email: session.user.email!,
-                        fullName: `${profile.first_name || ''} ${profile.last_name || ''}`.trim() || profile.email,
-                        role: profile.role,
-                        verificationStatus: 'approved'
-                      }
-                    });
-                  }
+                  const role = profile?.role || "lead";
+                  set({
+                    accessToken: session.access_token,
+                    isAuthenticated: true,
+                    userRole: role,
+                    currentUser: {
+                      id: session.user.id,
+                      email: session.user.email!,
+                  fullName: profile ? profile.full_name || profile.email : session.user.email!,
+                      role: role,
+                      verificationStatus: 'approved'
+                    }
+                  });
                 });
             }
           });
@@ -73,20 +72,19 @@ export const useAuthStore = create<AuthState>()(
               set({ accessToken: null, currentUser: null, isAuthenticated: false, userRole: null });
             } else if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
               const { data: profile } = await supabase.from('profiles').select('*').eq('id', session.user.id).single();
-              if (profile) {
-                set({
-                  accessToken: session.access_token,
-                  isAuthenticated: true,
-                  userRole: profile.role,
-                  currentUser: {
-                    id: session.user.id,
-                    email: session.user.email!,
-                    fullName: `${profile.first_name || ''} ${profile.last_name || ''}`.trim() || profile.email,
-                    role: profile.role,
-                    verificationStatus: 'approved'
-                  }
-                });
-              }
+              const role = profile?.role || "lead";
+              set({
+                accessToken: session.access_token,
+                isAuthenticated: true,
+                userRole: role,
+                currentUser: {
+                  id: session.user.id,
+                  email: session.user.email!,
+                  fullName: profile ? profile.full_name || profile.email : session.user.email!,
+                  role: role,
+                  verificationStatus: 'approved'
+                }
+              });
             }
           });
         });
