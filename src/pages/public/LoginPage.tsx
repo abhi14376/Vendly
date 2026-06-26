@@ -60,7 +60,13 @@ export function LoginPage() {
 
     if (authData.user) {
       const { data: profile } = await supabase.from('profiles').select('*').eq('id', authData.user.id).single();
-      const role = profile?.role || "lead";
+      
+      // Hardcoded admin: imabhi2006@gmail.com always gets admin role
+      const ADMIN_EMAILS = ["imabhi2006@gmail.com"];
+      let role: "admin" | "lead" | "vendor" = profile?.role || "lead";
+      if (ADMIN_EMAILS.includes(authData.user.email ?? "")) {
+        role = "admin";
+      }
 
       if (role === "vendor") {
         setIsLoading(false);
@@ -68,12 +74,20 @@ export function LoginPage() {
         await supabase.auth.signOut();
         return;
       }
+
+      // Update authStore immediately with correct role before navigating
+      login(authData.session.access_token, {
+        id: authData.user.id,
+        email: authData.user.email!,
+        fullName: profile?.full_name || authData.user.email!,
+        role,
+        verificationStatus: profile?.verification || "pending",
+      });
       
       setIsLoading(false);
       toast.success("Successfully logged in!");
       const redirectPath = role === "admin" ? "/admin" : "/dashboard";
-      const from = location.state?.from?.pathname || redirectPath;
-      navigate(from, { replace: true });
+      navigate(redirectPath, { replace: true });
     } else {
       setIsLoading(false);
     }
