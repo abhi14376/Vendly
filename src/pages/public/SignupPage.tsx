@@ -165,8 +165,13 @@ export function SignupPage() {
 
     if (error) {
       console.warn("Supabase signup failed:", error);
-      const errorMessage = typeof error.message === 'string' && error.message.trim() !== '' && error.message !== '{}' 
-        ? error.message 
+      let errorStr = "";
+      if (typeof error === 'string') errorStr = error;
+      else if (error && typeof error === 'object') {
+        errorStr = (error as any).message || (error as any).error_description || JSON.stringify(error);
+      }
+      const errorMessage = errorStr && errorStr.trim() !== '' && errorStr !== '{}' 
+        ? errorStr 
         : "Signup failed due to an unexpected error. Please check your inputs.";
       toast.error(errorMessage);
       setIsLoading(false);
