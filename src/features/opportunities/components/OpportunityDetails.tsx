@@ -260,22 +260,27 @@ export function OpportunityDetails({ id }: OpportunityDetailsProps) {
   return (
     <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+      <div className="flex flex-col gap-3 border-b border-slate-200 dark:border-slate-800 pb-6 mb-2">
+        {/* Back button row */}
         <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="self-start -ml-2 text-slate-500 hover:text-slate-900 dark:hover:text-slate-100">
           <ArrowLeft className="h-4 w-4 mr-1" /> Back
         </Button>
-        <div className="flex-1">
-          <div className="flex flex-wrap items-center gap-3 mb-2">
-            <Badge variant={getStatusVariant(opportunity.status)}>{opportunity.status}</Badge>
-            <span className="text-sm font-medium text-slate-500 dark:text-slate-400 flex items-center">
-              <Tag className="h-3 w-3 mr-1" /> {opportunity.category}
-            </span>
-            <span className="text-xs font-medium text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">
-               ID: {opportunity.id}
-            </span>
-          </div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">{opportunity.title}</h1>
+
+        {/* Tags row */}
+        <div className="flex flex-wrap items-center gap-2">
+          <Badge variant={getStatusVariant(opportunity.status)}>{opportunity.status}</Badge>
+          <span className="text-sm font-medium text-slate-500 dark:text-slate-400 flex items-center gap-1">
+            <Tag className="h-3.5 w-3.5" /> {opportunity.category}
+          </span>
+          <span className="text-xs font-medium text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-full">
+            ID: {opportunity.id}
+          </span>
         </div>
+
+        {/* Title */}
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white leading-snug">
+          {opportunity.title}
+        </h1>
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
