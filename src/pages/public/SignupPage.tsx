@@ -154,6 +154,13 @@ export function SignupPage() {
     const { data: authData, error } = await supabase.auth.signUp({
       email: data.email,
       password: data.password,
+      options: {
+        data: {
+          full_name: `${data.firstName} ${data.lastName}`,
+          role: roleParam,
+          mobile: data.mobile
+        }
+      }
     });
 
     if (error) {
@@ -164,24 +171,11 @@ export function SignupPage() {
     }
 
     if (authData.user) {
-      // Create profile record
-      const { error: profileError } = await supabase.from('profiles').insert({
-        id: authData.user.id,
-        email: data.email,
-        role: roleParam,
-        full_name: `${data.firstName} ${data.lastName}`
-      });
-
-      if (profileError) {
-        console.error("Failed to create profile:", profileError);
-        toast.error("Account created but failed to save profile details.");
-      } else {
-        toast.success("Account created and verified successfully!");
-      }
+      toast.success("Account created and verified successfully!");
     }
 
     setIsLoading(false);
-    navigate("/dashboard", { replace: true });
+    navigate(roleParam === "admin" ? "/admin" : "/dashboard", { replace: true });
   };
 
   const handleResendOtp = () => {
