@@ -179,9 +179,23 @@ export function SignupPage() {
     }
 
     if (authData.user) {
-      toast.success("Account created and verified successfully!");
-    }
+      // Create the profile directly from the frontend to bypass database trigger issues
+      const { error: profileError } = await supabase.from('profiles').insert({
+        id: authData.user.id,
+        email: data.email,
+        full_name: `${data.firstName} ${data.lastName}`,
+        role: roleParam,
+        mobile: data.mobile || null
+      });
 
+      if (profileError) {
+        console.error("Profile insert failed:", profileError);
+        toast.error(`Account created, but profile failed: ${profileError.message || 'Unknown error'}`);
+      } else {
+        toast.success("Account created and verified successfully!");
+      }
+    }
+    
     setIsLoading(false);
     navigate(roleParam === "admin" ? "/admin" : "/dashboard", { replace: true });
   };
