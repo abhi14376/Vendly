@@ -158,14 +158,17 @@ export function SignupPage() {
         data: {
           full_name: `${data.firstName} ${data.lastName}`,
           role: roleParam,
-          mobile: data.mobile
+          mobile: data.mobile || null
         }
       }
     });
 
     if (error) {
-      console.warn("Supabase signup failed:", error.message);
-      toast.error(error.message);
+      console.warn("Supabase signup failed:", error);
+      const errorMessage = typeof error.message === 'string' && error.message.trim() !== '' && error.message !== '{}' 
+        ? error.message 
+        : "Signup failed due to an unexpected error. Please check your inputs.";
+      toast.error(errorMessage);
       setIsLoading(false);
       return;
     }
