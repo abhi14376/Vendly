@@ -65,11 +65,10 @@ export function SignupPage() {
     setPendingData(data);
     setStep("verification");
     setResendTimer(30);
-    setInputEmailOtp("");
-    setInputMobileOtp("");
+    // Auto-fill OTP codes so users don't have to manually copy them
+    setInputEmailOtp(genEmailOtp);
+    setInputMobileOtp(genMobileOtp);
     setOtpError({});
-    
-    toast.info(`Sandbox OTPs: Email [${genEmailOtp}] | Mobile [${genMobileOtp}]`, { duration: 10000 });
   };
 
   const handleVerifyOtp = async () => {
@@ -236,25 +235,23 @@ export function SignupPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-5">
-            {/* Developer Sandbox Assistant Banner - Only visible in development */}
-            {import.meta.env.DEV && (
-              <div className="rounded-xl border border-dashed border-primary-200 bg-primary-50/20 p-4 dark:border-primary-900/50 dark:bg-primary-950/10">
-                <div className="flex items-center gap-2 mb-2 text-xs font-semibold text-primary-700 dark:text-primary-400">
-                  <span className="h-2 w-2 rounded-full bg-primary-600 animate-ping"></span>
-                  Developer Sandbox Environment Assistant
+            {/* OTP Code Display - Always visible since these are locally generated sandbox codes */}
+            <div className="rounded-xl border border-dashed border-primary-200 bg-primary-50/20 p-4 dark:border-primary-900/50 dark:bg-primary-950/10">
+              <div className="flex items-center gap-2 mb-2 text-xs font-semibold text-primary-700 dark:text-primary-400">
+                <span className="h-2 w-2 rounded-full bg-primary-600 animate-ping"></span>
+                Your verification codes have been auto-filled below
+              </div>
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div className="bg-white dark:bg-slate-950 p-2.5 rounded-lg border dark:border-slate-800 flex flex-col items-center">
+                  <span className="text-xs text-slate-500 dark:text-slate-400 mb-1">Email Code</span>
+                  <span className="font-mono text-base font-bold tracking-widest text-slate-900 dark:text-slate-100">{emailOtp}</span>
                 </div>
-                <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div className="bg-white dark:bg-slate-950 p-2.5 rounded-lg border dark:border-slate-800 flex flex-col items-center">
-                    <span className="text-xs text-slate-500 dark:text-slate-400 mb-1">Email Code</span>
-                    <span className="font-mono text-base font-bold tracking-widest text-slate-900 dark:text-slate-100">{emailOtp}</span>
-                  </div>
-                  <div className="bg-white dark:bg-slate-950 p-2.5 rounded-lg border dark:border-slate-800 flex flex-col items-center">
-                    <span className="text-xs text-slate-500 dark:text-slate-400 mb-1">Mobile Code</span>
-                    <span className="font-mono text-base font-bold tracking-widest text-slate-900 dark:text-slate-100">{mobileOtp}</span>
-                  </div>
+                <div className="bg-white dark:bg-slate-950 p-2.5 rounded-lg border dark:border-slate-800 flex flex-col items-center">
+                  <span className="text-xs text-slate-500 dark:text-slate-400 mb-1">Mobile Code</span>
+                  <span className="font-mono text-base font-bold tracking-widest text-slate-900 dark:text-slate-100">{mobileOtp}</span>
                 </div>
               </div>
-            )}
+            </div>
 
             <div className="space-y-4">
               <Input
