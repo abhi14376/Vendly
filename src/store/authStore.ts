@@ -40,16 +40,19 @@ export const useAuthStore = create<AuthState>()(
           userRole: currentUser.role,
         }),
       initialize: () => {
+        // Emails that are always treated as admin regardless of DB role
+        const ADMIN_EMAILS = ["imabhi2006@gmail.com"];
+
         import("@/lib/supabase").then(({ supabase }) => {
           if (!supabase) return;
-          
-            // Get initial session
+
+          // Get initial session
           supabase.auth.getSession().then(({ data: { session } }) => {
             if (session?.user) {
-              // Fetch user profile to get role
               supabase.from('profiles').select('*').eq('id', session.user.id).single()
                 .then(({ data: profile }) => {
-                  const role = profile?.role || "lead";
+                  const dbRole = profile?.role || "lead";
+                  const role = ADMIN_EMAILS.includes(session.user.email ?? "") ? "admin" : dbRole;
                   set({
                     accessToken: session.access_token,
                     isAuthenticated: true,
@@ -57,8 +60,8 @@ export const useAuthStore = create<AuthState>()(
                     currentUser: {
                       id: session.user.id,
                       email: session.user.email!,
-                  fullName: profile ? profile.full_name || profile.email : session.user.email!,
-                      role: role,
+                      fullName: profile ? profile.full_name || profile.email : session.user.email!,
+                      role: role as any,
                       verificationStatus: 'approved'
                     }
                   });
@@ -72,7 +75,8 @@ export const useAuthStore = create<AuthState>()(
               set({ accessToken: null, currentUser: null, isAuthenticated: false, userRole: null });
             } else if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
               const { data: profile } = await supabase.from('profiles').select('*').eq('id', session.user.id).single();
-              const role = profile?.role || "lead";
+              const dbRole = profile?.role || "lead";
+              const role = ADMIN_EMAILS.includes(session.user.email ?? "") ? "admin" : dbRole;
               set({
                 accessToken: session.access_token,
                 isAuthenticated: true,
@@ -81,7 +85,7 @@ export const useAuthStore = create<AuthState>()(
                   id: session.user.id,
                   email: session.user.email!,
                   fullName: profile ? profile.full_name || profile.email : session.user.email!,
-                  role: role,
+                  role: role as any,
                   verificationStatus: 'approved'
                 }
               });
