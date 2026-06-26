@@ -193,10 +193,20 @@ export function SignupPage() {
       } else {
         toast.success("Account created and verified successfully!");
       }
+
+      // Manually update authStore with correct role to fix race condition
+      // (onAuthStateChange may fire before profile insert completes, defaulting to 'lead')
+      login(authData.session?.access_token ?? "", {
+        id: authData.user.id,
+        email: data.email,
+        fullName: `${data.firstName} ${data.lastName}`,
+        role: roleParam as "admin" | "lead" | "vendor",
+        verificationStatus: "pending",
+      });
     }
     
     setIsLoading(false);
-    navigate(roleParam === "admin" ? "/admin" : "/dashboard", { replace: true });
+    navigate(roleParam === "admin" ? "/admin" : roleParam === "vendor" ? "/vendor" : "/dashboard", { replace: true });
   };
 
   const handleResendOtp = () => {
