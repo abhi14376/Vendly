@@ -1,6 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { Notification, NotificationFilter } from "../types";
-import { MOCK_NOTIFICATIONS } from "../services/mockData";
 import { useAuthStore } from "@/store/authStore";
 import { useNotificationStore } from "@/store/notificationStore";
 
@@ -27,12 +26,11 @@ export function useNotifications() {
     isRead: n.isRead,
   }));
 
-  // Initial load — merge localStorage notifications with mock data into the store
+  // Initial load — load only real notifications from localStorage (no mock data)
   useEffect(() => {
     const fetchNotifications = async () => {
       setIsLoading(true);
-      // Simulate network delay
-      await new Promise((resolve) => setTimeout(resolve, 800));
+      await new Promise((resolve) => setTimeout(resolve, 400));
 
       const localKey = currentUser ? `vendly-notifications-${currentUser.email}` : "";
       let localNotifs: Notification[] = [];
@@ -44,9 +42,8 @@ export function useNotifications() {
         }
       }
 
-      const merged = [...localNotifs, ...MOCK_NOTIFICATIONS];
       setLeadNotifications(
-        merged.map((n) => ({
+        localNotifs.map((n) => ({
           id: n.id,
           title: n.title,
           body: n.message,
