@@ -19,9 +19,19 @@ export function ErrorLayout({ statusCode, title }: ErrorLayoutProps) {
         <p className="mt-4 text-slate-600 dark:text-slate-300">
           We could not complete this request. Please return to a safe page and try again.
         </p>
-        <Button asChild className="mt-6">
-          <Link to="/">Go Back</Link>
-        </Button>
+        <div className="mt-4 p-4 bg-red-50 text-red-700 text-sm rounded-lg overflow-auto">
+          {routeError instanceof Error ? routeError.message : String(routeError)}
+        </div>
+        
+        {routeError instanceof Error && routeError.message.includes("dynamically imported module") ? (
+          <Button onClick={() => window.location.reload()} className="mt-6 bg-red-600 hover:bg-red-700">
+            Refresh App
+          </Button>
+        ) : (
+          <Button asChild className="mt-6">
+            <Link to="/">Go Back</Link>
+          </Button>
+        )}
       </section>
     </main>
   );
