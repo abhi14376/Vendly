@@ -131,11 +131,26 @@ export const opportunityService = {
     }
 
     if (supabase && userId) {
-      // Ensure the user's profile exists to satisfy the foreign key constraint
-      await supabase.from('profiles').upsert({ 
-        id: userId, 
-        role: 'lead' 
-      }, { onConflict: 'id' });
+      try {
+        const { data: userData } = await supabase.auth.getUser();
+        const email = userData?.user?.email || 'unknown@example.com';
+        const fullName = userData?.user?.user_metadata?.full_name || 'Vendly User';
+
+        // Use insert instead of upsert because the RLS policy might only allow INSERT
+        const { error: profileError } = await supabase.from('profiles').insert({ 
+          id: userId, 
+          email: email,
+          full_name: fullName,
+          role: 'lead' 
+        });
+        
+        // Ignore duplicate key error (23505) because it means profile already exists
+        if (profileError && profileError.code !== '23505') {
+          console.error("Profile insert error:", profileError);
+        }
+      } catch (err) {
+        console.error("Error creating profile:", err);
+      }
     }
 
     const { data: oppData, error: oppError } = await supabase
