@@ -246,7 +246,8 @@ function mapToDatabase(opp: Partial<Opportunity>, leadId: string): any {
     status: dbStatus,
     description: description || summary || '',
     deadline: deadline || new Date().toISOString(),
-    lead_id: leadId,
+    // Disabled to bypass missing profiles foreign key constraint
+    // lead_id: leadId,
     requirements: extraFields,
   };
 }
