@@ -129,7 +129,7 @@ export function LeadOpportunitiesPage() {
           </p>
         </div>
         <div className="flex shrink-0">
-          <Button onClick={() => navigate("/admin/opportunities/new")} className="w-full sm:w-auto">
+          <Button onClick={() => navigate("/dashboard/opportunities/new")} className="w-full sm:w-auto">
             <Plus className="size-4 mr-2" /> New Opportunity
           </Button>
         </div>

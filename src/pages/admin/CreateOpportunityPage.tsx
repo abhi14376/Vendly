@@ -382,7 +382,13 @@ export function CreateOpportunityPage() {
     setIsSaving(false);
     if (saved) {
       setIsSaved(true);
-      setTimeout(() => navigate('/admin/opportunities'), 2000);
+      setTimeout(() => {
+        if (window.location.pathname.startsWith('/dashboard')) {
+          navigate('/dashboard/opportunities');
+        } else {
+          navigate('/admin/opportunities');
+        }
+      }, 2000);
     } else {
       alert(`Failed to create opportunity. Error: ${error}`);
     }

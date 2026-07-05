@@ -94,6 +94,7 @@ export const router = createBrowserRouter([
               { index: true, element: <LeadDashboardPage /> },
               { path: "vendors", element: <VendorsPage /> },
               { path: "opportunities", element: <LeadOpportunitiesPage /> },
+              { path: "opportunities/new", element: <CreateOpportunityPage /> },
               { path: "opportunities/:id", element: <LeadOpportunityDetailsPage /> },
               { path: "applied-projects", element: <AppliedProjectsPage /> },
               { path: "queries", element: <LeadQueriesPage /> },
