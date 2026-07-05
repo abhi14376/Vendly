@@ -185,13 +185,13 @@ export function AdminOpportunitiesPage() {
             Tender intelligence platform powered by AI.
           </p>
         </div>
-        <div className="relative z-10 flex flex-wrap gap-2 shrink-0">
+        <div className="relative z-10 flex flex-col sm:flex-row gap-3 shrink-0 w-full sm:w-auto mt-2 sm:mt-0">
           <Button 
             onClick={() => navigate("/admin/opportunities/new")}
             variant="outline" 
-            className="border-indigo-900 bg-indigo-950/20 text-indigo-300 hover:bg-indigo-950/60"
+            className="w-full sm:w-auto border-indigo-500/50 bg-indigo-600/20 text-indigo-100 hover:bg-indigo-600/40 hover:text-white justify-center py-6 sm:py-2"
           >
-            <Plus className="size-4 mr-2" /> Create Opportunity
+            <Plus className="size-5 sm:size-4 mr-2" /> Create Opportunity
           </Button>
         </div>
       </div>
