@@ -76,10 +76,10 @@ export function LeadMatchedVendors() {
                       Tender: {match.tenderTitle} ({match.tenderNumber})
                     </p>
                     <div className="flex gap-2 mt-2 flex-wrap">
-                      {match.categoryMatch && <Badge variant="outline" className="text-[10px] py-0 h-4">Category</Badge>}
-                      {match.stateMatch && <Badge variant="outline" className="text-[10px] py-0 h-4">State</Badge>}
-                      {match.turnoverMatch && <Badge variant="outline" className="text-[10px] py-0 h-4">Turnover</Badge>}
-                      {match.experienceMatch && <Badge variant="outline" className="text-[10px] py-0 h-4">Experience</Badge>}
+                      {match.categoryMatch && <Badge variant="default" className="text-[10px] py-0 h-4">Category</Badge>}
+                      {match.stateMatch && <Badge variant="default" className="text-[10px] py-0 h-4">State</Badge>}
+                      {match.turnoverMatch && <Badge variant="default" className="text-[10px] py-0 h-4">Turnover</Badge>}
+                      {match.experienceMatch && <Badge variant="default" className="text-[10px] py-0 h-4">Experience</Badge>}
                     </div>
                   </div>
                 </div>
@@ -93,7 +93,7 @@ export function LeadMatchedVendors() {
                   </div>
                   <div className="flex items-center gap-2">
                     <Button 
-                      variant="outline" 
+                      variant="default" 
                       size="sm" 
                       className="text-xs h-8"
                       onClick={() => handleViewSummary(match)}

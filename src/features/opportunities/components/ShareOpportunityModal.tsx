@@ -34,6 +34,7 @@ export function ShareOpportunityModal({
   const [selectedVendorIds, setSelectedVendorIds] = useState<string[]>([]);
 
   const { shareOpportunity } = useShareStore();
+  const vendors = useVendorStore(state => state.vendors);
 
   // Load answered queries/clarifications on mount when modal opens
   useEffect(() => {
