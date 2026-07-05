@@ -130,6 +130,14 @@ export const opportunityService = {
       return { data: newOpp, error: null };
     }
 
+    if (supabase && userId) {
+      // Ensure the user's profile exists to satisfy the foreign key constraint
+      await supabase.from('profiles').upsert({ 
+        id: userId, 
+        role: 'lead' 
+      }, { onConflict: 'id' });
+    }
+
     const { data: oppData, error: oppError } = await supabase
       .from('opportunities')
       .insert([mapToDatabase(opportunity, userId as string)])
