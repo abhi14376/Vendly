@@ -56,11 +56,11 @@ export function AboutPage() {
         <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-slate-900 dark:text-white">
           About{" "}
           <span className="bg-gradient-to-r from-indigo-600 to-indigo-400 bg-clip-text text-transparent">
-            Vendly
+            BidTracker
           </span>
         </h1>
         <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-          Vendly is a verification-first B2B marketplace designed to digitize procurement, eliminate operational friction, and establish deep trust between enterprise leads and qualified subcontractors.
+          BidTracker is a verification-first B2B marketplace designed to digitize procurement, eliminate operational friction, and establish deep trust between enterprise leads and qualified subcontractors.
         </p>
       </section>
 
@@ -72,7 +72,7 @@ export function AboutPage() {
             In many industrial, civil construction, events, and electrical sectors, project procurement remains fragmented. Businesses struggle to find trustworthy vendors, while suppliers have difficulty discovering validated project tenders.
           </p>
           <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-            Vendly was built to bridge this gap. By combining manual verification, standardized project posting formats (Tenders & Back-to-Back), transparent question-and-answer threading, and secure document storage, we ensure that both parties can transact with confidence.
+            BidTracker was built to bridge this gap. By combining manual verification, standardized project posting formats (Tenders & Back-to-Back), transparent question-and-answer threading, and secure document storage, we ensure that both parties can transact with confidence.
           </p>
         </div>
         <div className="rounded-2xl bg-gradient-to-br from-indigo-600 to-indigo-800 p-8 text-white space-y-6 shadow-xl">
@@ -104,7 +104,7 @@ export function AboutPage() {
               <div className="inline-flex items-center gap-2 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider">
                 <Sparkles className="h-3.5 w-3.5" /> Our Purpose
               </div>
-              <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Why Vendly Exists</h2>
+              <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Why BidTracker Exists</h2>
               <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                 To build an open, trusted, and friction-free B2B opportunity ecosystem that unlocks commercial project scale for subcontractors and buyers alike.
               </p>
@@ -126,7 +126,7 @@ export function AboutPage() {
                   Frictionless Communication
                 </h4>
                 <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                  Procurement cycles get blocked by endless disconnected email chains. Vendly streamlines communications with structured query resolution directly associated with each project opportunity page.
+                  Procurement cycles get blocked by endless disconnected email chains. BidTracker streamlines communications with structured query resolution directly associated with each project opportunity page.
                 </p>
               </div>
               <div className="space-y-2">
@@ -159,7 +159,7 @@ export function AboutPage() {
             Winning the Right Opportunities
           </h2>
           <p className="max-w-xl mx-auto text-slate-500 dark:text-slate-400">
-            How Leads and Vendors can best leverage the Vendly ecosystem to successfully execute commercial projects.
+            How Leads and Vendors can best leverage the BidTracker ecosystem to successfully execute commercial projects.
           </p>
         </div>
 

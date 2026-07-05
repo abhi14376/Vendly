@@ -8,10 +8,10 @@ export function PrivacyPage() {
           <strong>Last Updated:</strong> 1st April 2026
         </p>
 
-        <h2 className="text-2xl mt-8 mb-4">Privacy Policy for Vendly</h2>
-        <p>Welcome to <strong>Vendly</strong>, a verification-first B2B marketplace owned and operated by <strong>Abhigyan Consulting</strong> ("Vendly", "we", "our", or "us").</p>
-        <p>Your privacy is important to us. This Privacy Policy explains how we collect, use, disclose, store, and protect your information when you use the Vendly website, portal, and related services ("Platform").</p>
-        <p>By accessing or using Vendly, you agree to the practices described in this Privacy Policy.</p>
+        <h2 className="text-2xl mt-8 mb-4">Privacy Policy for BidTracker</h2>
+        <p>Welcome to <strong>BidTracker</strong>, a verification-first B2B marketplace owned and operated by <strong>Abhigyan Consulting</strong> ("BidTracker", "we", "our", or "us").</p>
+        <p>Your privacy is important to us. This Privacy Policy explains how we collect, use, disclose, store, and protect your information when you use the BidTracker website, portal, and related services ("Platform").</p>
+        <p>By accessing or using BidTracker, you agree to the practices described in this Privacy Policy.</p>
 
         <hr className="my-8" />
 
@@ -89,9 +89,9 @@ export function PrivacyPage() {
         <hr className="my-8" />
 
         <h2 className="text-xl mt-6 mb-3">3. Verification Process</h2>
-        <p>Vendly operates a verification-first marketplace.</p>
+        <p>BidTracker operates a verification-first marketplace.</p>
         <p>Information submitted during verification may be reviewed by authorized personnel of Abhigyan Consulting.</p>
-        <p>Verification does not constitute a guarantee of future business performance, financial stability, or contractual reliability. It indicates that the information submitted has been reviewed according to Vendly's verification procedures.</p>
+        <p>Verification does not constitute a guarantee of future business performance, financial stability, or contractual reliability. It indicates that the information submitted has been reviewed according to BidTracker's verification procedures.</p>
 
         <hr className="my-8" />
 
@@ -146,7 +146,7 @@ export function PrivacyPage() {
         <hr className="my-8" />
 
         <h2 className="text-xl mt-6 mb-3">6. Cookies</h2>
-        <p>Vendly uses cookies and similar technologies to:</p>
+        <p>BidTracker uses cookies and similar technologies to:</p>
         <ul className="list-disc pl-6 mb-4 space-y-1">
           <li>Keep users logged in</li>
           <li>Improve website performance</li>
@@ -202,12 +202,12 @@ export function PrivacyPage() {
         <h2 className="text-xl mt-6 mb-3">10. Third-Party Services</h2>
         <p>The Platform may integrate with trusted third-party services such as authentication providers, cloud storage providers, analytics tools, or communication platforms.</p>
         <p>These services are governed by their own privacy policies.</p>
-        <p>Vendly is not responsible for the privacy practices of third-party websites or services.</p>
+        <p>BidTracker is not responsible for the privacy practices of third-party websites or services.</p>
 
         <hr className="my-8" />
 
         <h2 className="text-xl mt-6 mb-3">11. Children's Privacy</h2>
-        <p>Vendly is intended solely for business users.</p>
+        <p>BidTracker is intended solely for business users.</p>
         <p>The Platform is not directed toward individuals under 18 years of age.</p>
         <p>We do not knowingly collect personal information from children.</p>
 
@@ -242,7 +242,7 @@ export function PrivacyPage() {
         <h2 className="text-xl mt-6 mb-3">15. Changes to This Privacy Policy</h2>
         <p>We may update this Privacy Policy from time to time.</p>
         <p>When significant changes are made, we will update the "Last Updated" date and, where appropriate, notify users through the Platform or via email.</p>
-        <p>Continued use of Vendly after such changes constitutes acceptance of the revised Privacy Policy.</p>
+        <p>Continued use of BidTracker after such changes constitutes acceptance of the revised Privacy Policy.</p>
 
         <hr className="my-8" />
 
@@ -250,10 +250,10 @@ export function PrivacyPage() {
         <p>If you have questions, concerns, or requests regarding this Privacy Policy or your personal information, please contact:</p>
         <p>
           <strong>Abhigyan Consulting</strong><br />
-          <strong>Vendly Support Team</strong>
+          <strong>BidTracker Support Team</strong>
         </p>
-        <p><strong>Email:</strong> <a href="mailto:privacy@vendly.in">privacy@vendly.in</a></p>
-        <p><strong>Website:</strong> <a href="https://vendly.in" target="_blank" rel="noreferrer">https://vendly.in</a></p>
+        <p><strong>Email:</strong> <a href="mailto:privacy@bidtracker.in">privacy@bidtracker.in</a></p>
+        <p><strong>Website:</strong> <a href="https://bidtracker.in" target="_blank" rel="noreferrer">https://bidtracker.in</a></p>
 
         <hr className="my-8" />
 

@@ -8,15 +8,15 @@ export function TermsPage() {
           <strong>Last Updated:</strong> 1st April 2026
         </p>
 
-        <h2 className="text-2xl mt-8 mb-4">Terms of Service for Vendly</h2>
-        <p>Welcome to <strong>Vendly</strong>, a verification-first B2B marketplace owned and operated by <strong>Abhigyan Consulting</strong> ("Vendly", "we", "our", or "us").</p>
-        <p>These Terms of Service ("Terms") govern your access to and use of the Vendly website, portal, applications, and related services (collectively, the "Platform").</p>
+        <h2 className="text-2xl mt-8 mb-4">Terms of Service for BidTracker</h2>
+        <p>Welcome to <strong>BidTracker</strong>, a verification-first B2B marketplace owned and operated by <strong>Abhigyan Consulting</strong> ("BidTracker", "we", "our", or "us").</p>
+        <p>These Terms of Service ("Terms") govern your access to and use of the BidTracker website, portal, applications, and related services (collectively, the "Platform").</p>
         <p>By creating an account, accessing, or using the Platform, you agree to be legally bound by these Terms. If you do not agree with these Terms, you must not access or use the Platform.</p>
 
         <hr className="my-8" />
 
         <h2 className="text-xl mt-6 mb-3">1. Eligibility</h2>
-        <p>To use Vendly, you must:</p>
+        <p>To use BidTracker, you must:</p>
         <ul className="list-disc pl-6 mb-4 space-y-1">
           <li>Be at least 18 years of age.</li>
           <li>Have the legal authority to represent yourself or your organization.</li>
@@ -27,9 +27,9 @@ export function TermsPage() {
 
         <hr className="my-8" />
 
-        <h2 className="text-xl mt-6 mb-3">2. About Vendly</h2>
-        <p>Vendly is a <strong>verification-first B2B marketplace</strong> that connects businesses seeking products or services ("Leads") with verified service providers ("Vendors").</p>
-        <p>Vendly provides a technology platform to facilitate introductions and business discovery. Unless expressly agreed in writing, Vendly is <strong>not</strong> a party to any contract, negotiation, transaction, or commercial agreement entered into between users.</p>
+        <h2 className="text-xl mt-6 mb-3">2. About BidTracker</h2>
+        <p>BidTracker is a <strong>verification-first B2B marketplace</strong> that connects businesses seeking products or services ("Leads") with verified service providers ("Vendors").</p>
+        <p>BidTracker provides a technology platform to facilitate introductions and business discovery. Unless expressly agreed in writing, BidTracker is <strong>not</strong> a party to any contract, negotiation, transaction, or commercial agreement entered into between users.</p>
 
         <hr className="my-8" />
 
@@ -39,7 +39,7 @@ export function TermsPage() {
           <li>Maintaining the confidentiality of account credentials.</li>
           <li>Restricting access to their account.</li>
           <li>Ensuring information remains accurate and up to date.</li>
-          <li>Promptly notifying Vendly of unauthorized account access or suspected security incidents.</li>
+          <li>Promptly notifying BidTracker of unauthorized account access or suspected security incidents.</li>
         </ul>
         <p>You are responsible for all activities performed through your account.</p>
 
@@ -54,7 +54,7 @@ export function TermsPage() {
           <li>Administrator</li>
         </ul>
         <p>Each role has different permissions and access rights.</p>
-        <p>Vendly reserves the right to modify permissions, features, or role capabilities at any time.</p>
+        <p>BidTracker reserves the right to modify permissions, features, or role capabilities at any time.</p>
 
         <hr className="my-8" />
 
@@ -68,8 +68,8 @@ export function TermsPage() {
           <li>Certifications</li>
           <li>Supporting business information</li>
         </ul>
-        <p>Approval is granted at the sole discretion of Vendly based on the information provided.</p>
-        <p>Verification indicates that submitted information has been reviewed according to Vendly's procedures. It does <strong>not</strong> guarantee:</p>
+        <p>Approval is granted at the sole discretion of BidTracker based on the information provided.</p>
+        <p>Verification indicates that submitted information has been reviewed according to BidTracker's procedures. It does <strong>not</strong> guarantee:</p>
         <ul className="list-disc pl-6 mb-4 space-y-1">
           <li>Business quality</li>
           <li>Financial capability</li>
@@ -77,7 +77,7 @@ export function TermsPage() {
           <li>Legal compliance beyond the information reviewed</li>
           <li>Successful completion of projects</li>
         </ul>
-        <p>Vendly may revoke verification if new information indicates that continued verification is no longer appropriate.</p>
+        <p>BidTracker may revoke verification if new information indicates that continued verification is no longer appropriate.</p>
 
         <hr className="my-8" />
 
@@ -90,7 +90,7 @@ export function TermsPage() {
           <li>Non-misleading</li>
           <li>Properly authorized</li>
         </ul>
-        <p>Vendly reserves the right to edit, suspend, reject, or remove any opportunity that violates these Terms or applicable law.</p>
+        <p>BidTracker reserves the right to edit, suspend, reject, or remove any opportunity that violates these Terms or applicable law.</p>
 
         <hr className="my-8" />
 
@@ -138,19 +138,19 @@ export function TermsPage() {
           <li>Commercially exploit</li>
         </ul>
         <p>any part of the Platform without prior written permission.</p>
-        <p>Users retain ownership of content they upload but grant Vendly a non-exclusive, worldwide, royalty-free license to host, store, display, and process such content solely for operating and improving the Platform.</p>
+        <p>Users retain ownership of content they upload but grant BidTracker a non-exclusive, worldwide, royalty-free license to host, store, display, and process such content solely for operating and improving the Platform.</p>
 
         <hr className="my-8" />
 
         <h2 className="text-xl mt-6 mb-3">10. Privacy</h2>
-        <p>Your use of the Platform is also governed by the Vendly Privacy Policy.</p>
-        <p>By using Vendly, you acknowledge that your information will be collected, processed, and stored in accordance with that policy.</p>
+        <p>Your use of the Platform is also governed by the BidTracker Privacy Policy.</p>
+        <p>By using BidTracker, you acknowledge that your information will be collected, processed, and stored in accordance with that policy.</p>
 
         <hr className="my-8" />
 
         <h2 className="text-xl mt-6 mb-3">11. Fees and Payments</h2>
-        <p>The current MVP of Vendly may be offered without subscription or transaction fees.</p>
-        <p>Vendly reserves the right to introduce:</p>
+        <p>The current MVP of BidTracker may be offered without subscription or transaction fees.</p>
+        <p>BidTracker reserves the right to introduce:</p>
         <ul className="list-disc pl-6 mb-4 space-y-1">
           <li>Subscription plans</li>
           <li>Premium features</li>
@@ -172,13 +172,13 @@ export function TermsPage() {
           <li>Analytics</li>
           <li>Security</li>
         </ul>
-        <p>Vendly is not responsible for the availability, accuracy, or practices of third-party services.</p>
+        <p>BidTracker is not responsible for the availability, accuracy, or practices of third-party services.</p>
 
         <hr className="my-8" />
 
         <h2 className="text-xl mt-6 mb-3">13. Disclaimer of Warranties</h2>
         <p>The Platform is provided on an <strong>"as is"</strong> and <strong>"as available"</strong> basis.</p>
-        <p>To the maximum extent permitted by law, Vendly disclaims all warranties, including implied warranties of:</p>
+        <p>To the maximum extent permitted by law, BidTracker disclaims all warranties, including implied warranties of:</p>
         <ul className="list-disc pl-6 mb-4 space-y-1">
           <li>Merchantability</li>
           <li>Fitness for a particular purpose</li>
@@ -186,7 +186,7 @@ export function TermsPage() {
           <li>Continuous availability</li>
           <li>Error-free operation</li>
         </ul>
-        <p>Vendly does not guarantee that:</p>
+        <p>BidTracker does not guarantee that:</p>
         <ul className="list-disc pl-6 mb-4 space-y-1">
           <li>Users will obtain business opportunities.</li>
           <li>Vendors will receive projects.</li>
@@ -209,7 +209,7 @@ export function TermsPage() {
           <li>Business interruption</li>
         </ul>
         <p>arising from or related to the use of the Platform.</p>
-        <p>Any liability that cannot be excluded by law shall be limited to the amount paid by the user to Vendly during the twelve (12) months preceding the claim, if any.</p>
+        <p>Any liability that cannot be excluded by law shall be limited to the amount paid by the user to BidTracker during the twelve (12) months preceding the claim, if any.</p>
 
         <hr className="my-8" />
 
@@ -226,7 +226,7 @@ export function TermsPage() {
         <hr className="my-8" />
 
         <h2 className="text-xl mt-6 mb-3">16. Suspension and Termination</h2>
-        <p>Vendly may suspend or terminate accounts without prior notice if users:</p>
+        <p>BidTracker may suspend or terminate accounts without prior notice if users:</p>
         <ul className="list-disc pl-6 mb-4 space-y-1">
           <li>Violate these Terms.</li>
           <li>Engage in fraudulent activity.</li>
@@ -239,7 +239,7 @@ export function TermsPage() {
         <hr className="my-8" />
 
         <h2 className="text-xl mt-6 mb-3">17. Changes to the Platform</h2>
-        <p>Vendly may:</p>
+        <p>BidTracker may:</p>
         <ul className="list-disc pl-6 mb-4 space-y-1">
           <li>Modify features.</li>
           <li>Introduce new functionality.</li>
@@ -255,7 +255,7 @@ export function TermsPage() {
         <h2 className="text-xl mt-6 mb-3">18. Changes to These Terms</h2>
         <p>We may revise these Terms periodically.</p>
         <p>The updated version will be published on the Platform with a revised "Last Updated" date.</p>
-        <p>Continued use of Vendly after the effective date of revised Terms constitutes acceptance of those changes.</p>
+        <p>Continued use of BidTracker after the effective date of revised Terms constitutes acceptance of those changes.</p>
 
         <hr className="my-8" />
 
@@ -271,7 +271,7 @@ export function TermsPage() {
         <hr className="my-8" />
 
         <h2 className="text-xl mt-6 mb-3">21. Entire Agreement</h2>
-        <p>These Terms, together with the Privacy Policy and any other policies expressly incorporated by reference, constitute the entire agreement between you and Vendly regarding the use of the Platform and supersede all prior understandings relating to the subject matter.</p>
+        <p>These Terms, together with the Privacy Policy and any other policies expressly incorporated by reference, constitute the entire agreement between you and BidTracker regarding the use of the Platform and supersede all prior understandings relating to the subject matter.</p>
 
         <hr className="my-8" />
 
@@ -279,15 +279,15 @@ export function TermsPage() {
         <p>If you have any questions regarding these Terms, please contact:</p>
         <p>
           <strong>Abhigyan Consulting</strong><br />
-          <strong>Vendly Support Team</strong>
+          <strong>BidTracker Support Team</strong>
         </p>
-        <p><strong>Email:</strong> <a href="mailto:legal@vendly.in">legal@vendly.in</a></p>
-        <p><strong>Website:</strong> <a href="https://vendly.in" target="_blank" rel="noreferrer">https://vendly.in</a></p>
+        <p><strong>Email:</strong> <a href="mailto:legal@bidtracker.in">legal@bidtracker.in</a></p>
+        <p><strong>Website:</strong> <a href="https://bidtracker.in" target="_blank" rel="noreferrer">https://bidtracker.in</a></p>
 
         <hr className="my-8" />
 
         <h2 className="text-xl mt-6 mb-3">23. Acknowledgement</h2>
-        <p>By creating an account, clicking <strong>"I Agree"</strong>, or using the Vendly Platform, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.</p>
+        <p>By creating an account, clicking <strong>"I Agree"</strong>, or using the BidTracker Platform, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.</p>
       </div>
     </div>
   );

@@ -37,7 +37,7 @@ export const useShareStore = create<ShareState>()(
           .map((s) => s.opportunityId),
     }),
     {
-      name: "vendly-shares",
+      name: "bidtracker-shares",
     }
   )
 );

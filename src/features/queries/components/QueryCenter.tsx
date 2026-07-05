@@ -12,7 +12,7 @@ export function QueryCenter() {
   // We'll use a responsive approach: 
   // On large screens, we use a master-detail split view.
   // On small screens, we show the list, and if a query is selected, show it in a Drawer (or just over the list).
-  // For simplicity and matching standard Vendly UI, let's use standard grid on lg, and maybe a Drawer on mobile.
+  // For simplicity and matching standard BidTracker UI, let's use standard grid on lg, and maybe a Drawer on mobile.
   // Actually, a simpler responsive pattern:
   // Hide list on mobile if a query is selected, show back button.
   // We don't have a "back button" readily available in QueryThread, so Drawer is easier.

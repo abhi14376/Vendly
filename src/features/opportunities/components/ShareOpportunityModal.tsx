@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/Button";
 import { Avatar } from "@/components/ui/Avatar";
 import { Badge } from "@/components/ui/Badge";
 import { Search, Share2, Cpu } from "lucide-react";
-import { mockVendors } from "@/features/vendors/data/mockVendors";
+import { useVendorStore } from "@/store/vendorStore";
+import { type VendorProfile } from "@/features/vendors/data/vendorTypes";
 import { useShareStore } from "../store/useShareStore";
 import { toast } from "sonner";
 import { Opportunity } from "@/types/Opportunity";
@@ -78,7 +79,7 @@ export function ShareOpportunityModal({
   }, [isOpen]);
 
   const filteredVendors = useMemo(() => {
-    return mockVendors.filter(
+    return vendors.filter(
       (vendor) =>
         vendor.companyName.toLowerCase().includes(searchQuery.toLowerCase()) ||
         vendor.industry.toLowerCase().includes(searchQuery.toLowerCase())
@@ -106,7 +107,7 @@ export function ShareOpportunityModal({
       shareOpportunity(vendorId, opportunity.id);
     });
 
-    const vendorNames = mockVendors
+    const vendorNames = vendors
       .filter((v) => selectedVendorIds.includes(v.id))
       .map((v) => v.companyName)
       .join(", ");

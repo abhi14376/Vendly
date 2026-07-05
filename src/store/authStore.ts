@@ -95,7 +95,7 @@ export const useAuthStore = create<AuthState>()(
       },
     }),
     {
-      name: "vendly-auth",
+      name: "bidtracker-auth",
       partialize: (state) => ({
         accessToken: state.accessToken,
         currentUser: state.currentUser,

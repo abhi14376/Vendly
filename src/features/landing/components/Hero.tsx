@@ -19,7 +19,7 @@ export function Hero() {
             </span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-600 dark:text-slate-400">
-            Vendly connects leads with top-tier vendors seamlessly. Post opportunities, track applications, and manage projects in one powerful, unified platform.
+            BidTracker connects leads with top-tier vendors seamlessly. Post opportunities, track applications, and manage projects in one powerful, unified platform.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Button asChild size="default" className="w-full sm:w-auto">

@@ -2,7 +2,7 @@ import { Hero } from "@/features/landing/components/Hero";
 import { Features } from "@/features/landing/components/Features";
 import { HowItWorks } from "@/features/landing/components/HowItWorks";
 import { Industries } from "@/features/landing/components/Industries";
-import { WhyVendly } from "@/features/landing/components/WhyVendly";
+import { WhyBidTracker } from "@/features/landing/components/WhyBidTracker";
 import { CallToAction } from "@/features/landing/components/CallToAction";
 
 export function HomePage() {
@@ -12,7 +12,7 @@ export function HomePage() {
         <Hero />
         <Features />
         <HowItWorks />
-        <WhyVendly />
+        <WhyBidTracker />
         <Industries />
         <CallToAction />
       </main>

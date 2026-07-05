@@ -1,7 +1,7 @@
 import { OpportunityApplyAction } from "@/features/opportunities/components/OpportunityApplyAction";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
-import { mockOpportunities } from "@/lib/mockOpportunities";
+
 import { useShareStore } from "@/features/opportunities/store/useShareStore";
 import { useAuthStore } from "@/store/authStore";
 import { formatCurrency } from "@/utils/formatCurrency";
@@ -22,7 +22,7 @@ export function VendorOpportunitiesPage() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
-        {mockOpportunities.map((opportunity) => {
+        {([] as any[]).map((opportunity) => {
           const shared = isOpportunityShared(vendorId, opportunity.id);
           return (
             <Card key={opportunity.id} className={`group relative border transition-all duration-300 ${

@@ -2,6 +2,7 @@ import { LeadKPICards } from "@/features/dashboard/components/LeadKPICards";
 import { LeadRecentOpportunities } from "@/features/dashboard/components/LeadRecentOpportunities";
 import { LeadQuickActions } from "@/features/dashboard/components/LeadQuickActions";
 import { LeadNotificationsPanel } from "@/features/dashboard/components/LeadNotificationsPanel";
+import { LeadMatchedVendors } from "@/features/dashboard/components/LeadMatchedVendors";
 
 export function LeadDashboardPage() {
   return (
@@ -20,6 +21,7 @@ export function LeadDashboardPage() {
       <div className="grid gap-6 md:grid-cols-7 lg:grid-cols-7">
         <div className="space-y-6 md:col-span-4 lg:col-span-5">
           <LeadRecentOpportunities />
+          <LeadMatchedVendors />
           <LeadNotificationsPanel />
         </div>
         <div className="md:col-span-3 lg:col-span-2">

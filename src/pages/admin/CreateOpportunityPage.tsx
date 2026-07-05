@@ -10,24 +10,24 @@ import { opportunityService } from '@/services/opportunityService';
 import { geminiService } from '@/services/geminiService';
 import { Opportunity } from '@/types/Opportunity';
 
-const SYSTEM_PROMPT = `Role: You are an expert Construction Project Manager and Procurement Analyst. Your task is to analyze uploaded tender documents, Technical Specifications, and Bill of Quantities (BOQ) files.
+const SYSTEM_PROMPT = `Role: You are an expert Construction Project Manager and Procurement Analyst. Your task is to analyze uploaded tender documents, Technical Specifications, Bill of Quantities (BOQ) files, and Corrigendums/Amendments.
 
-Objective: Generate a comprehensive, highly structured work summary designed to give prospective vendors a complete, unambiguous understanding of the project scope, financial scale, and mandatory deliverables.
+Objective: Generate a comprehensive, highly structured work summary designed to give prospective vendors a complete, unambiguous understanding of the project scope, financial scale, mandatory deliverables, and any amendments to the original clauses.
 
 Output Structure & Requirements:
 Organize your response using the following exact Markdown headings and extract the corresponding data:
 
 ### 1. Project Overview
-Extract the exact project name, reference number, client name, and location.
+Extract the exact project name, reference number, client name, and location. (Infer from document headers/footers if not explicitly labeled).
 
 ### 2. Financial & Commercial Details
-Extract the estimated cost, EMD, tender fees, and performance guarantees.
+Extract the estimated cost, EMD, tender fees, performance guarantees, and net worth requirements.
 
 ### 3. Critical Dates & Timelines
 Extract submission deadlines, pre-bid meetings, and the total execution period.
 
 ### 4. Eligibility & Pre-Qualification
-Extract financial turnover requirements, past experience criteria, and mandatory certifications.
+Extract financial turnover requirements, past experience criteria, mandatory certifications, and capacity requirements.
 
 ### 5. Scope of Work
 Provide a concise breakdown of the main deliverables and operational requirements.
@@ -35,9 +35,12 @@ Provide a concise breakdown of the main deliverables and operational requirement
 ### 6. Special Conditions
 Extract penalty clauses, warranty periods, and joint venture rules.
 
+### 7. Amendments / Corrigendum
+If the document is an amendment or corrigendum, strictly list the exact clauses that were amended, removed, or added. If no amendments exist, state "No amendments found."
+
 Strict Constraints:
-- Zero Hallucination: Rely only on the provided text. If a piece of information (like a budget or specific equipment capacity) is not in the text, state "Not specified in the provided documents."
-- Precision: Extract exact monetary values, dimensions, and technical capacities. Do not round or summarize numbers.
+- Zero Hallucination: Rely only on the provided text. If a piece of information is completely absent, state "N/A" (Do not write long sentences like 'Not specified in the provided documents').
+- Precision: Extract exact monetary values, dimensions, technical capacities, and amended rules. Do not round or summarize numbers.
 - Formatting: Use clean Markdown with bullet points for maximum scannability. Avoid dense, unbroken paragraphs.`;
 
 const parseItalicText = (text: string) => {
@@ -152,7 +155,11 @@ export function CreateOpportunityPage() {
       };
 
       const cleanMarkdownValue = (val: string) => {
-        return val.replace(/\*\*/g, '').replace(/^[-\*\s•:]+/, '').trim();
+        let cleaned = val.replace(/\*\*/g, '').replace(/^[-\*\s•:]+/, '').trim();
+        if (/not specified|not available|not found|not mentioned|n\/a/i.test(cleaned)) {
+          return "N/A";
+        }
+        return cleaned;
       };
 
       // Let's search line-by-line for robust matches

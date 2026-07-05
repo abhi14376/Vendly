@@ -32,7 +32,7 @@ export function LoginPage() {
   // Autofill if admin role requested
   useEffect(() => {
     if (roleParam === "admin") {
-      setValue("email", "admin@vendly.com");
+      setValue("email", "admin@bidtracker.com");
       setValue("password", "admin123");
     }
   }, [roleParam, setValue]);
@@ -100,11 +100,11 @@ export function LoginPage() {
     
     if (role === "admin") {
       redirectPath = "/admin";
-      email = "admin@vendly.com";
+      email = "admin@bidtracker.com";
       fullName = "Demo Admin";
     } else {
       redirectPath = "/dashboard";
-      email = "lead@vendly.com";
+      email = "lead@bidtracker.com";
       fullName = "Demo Lead";
     }
 

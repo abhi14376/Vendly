@@ -1,6 +1,6 @@
-# Vendly
+# BidTracker
 
-Vendly is a verification-first B2B marketplace built with React, TypeScript, Tailwind CSS, and Supabase.
+BidTracker is a verification-first B2B marketplace built with React, TypeScript, Tailwind CSS, and Supabase.
 
 ## Current Status
 

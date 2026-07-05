@@ -11,7 +11,7 @@ export function BrandLogo({ compact = false, inverse = false }: BrandLogoProps) 
       </span>
       {!compact && (
         <span className={`text-lg font-bold ${inverse ? "text-white" : "text-slate-900 dark:text-white"}`}>
-          Vendly
+          BidTracker
         </span>
       )}
     </span>

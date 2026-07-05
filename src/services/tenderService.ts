@@ -10,7 +10,7 @@ import {
   TenderAward,
   TenderStatus
 } from '@/types/Tender';
-import { mockVendors, VendorProfile } from '@/features/vendors/data/mockVendors';
+
 import { getLocalOpportunities } from './localOpportunityStore';
 import { Opportunity } from '@/types/Opportunity';
 
@@ -315,7 +315,7 @@ localTenders = [...initialMockTenders];
 const generateInitialMockMatches = () => {
   const matches: TenderMatch[] = [];
   localTenders.forEach(tender => {
-    mockVendors.slice(0, 5).forEach((vendor, index) => {
+    [].forEach((vendor: any, index: number) => {
       // Calculate scores
       const score = Math.floor(50 + Math.random() * 45); // 50 to 95
       matches.push({
@@ -887,7 +887,7 @@ export const tenderService = {
   },
 
   // 9. Vendor Matching Engine logic
-  calculateMatchScore(tender: Tender, vendor: VendorProfile | any): {
+  calculateMatchScore(tender: Tender, vendor: any | any): {
     score: number;
     categoryMatch: boolean;
     stateMatch: boolean;
@@ -902,8 +902,9 @@ export const tenderService = {
     // 2. State matching
     const tenderState = tender.stateName || '';
     // Map standard state abbreviations or locations
-    const vendorStates = vendor.operating_states || [vendor.location.split(',')[1]?.trim()] || [];
-    const stateMatch = vendorStates.some((s: string) => s.toLowerCase() === tenderState.toLowerCase() || s.toLowerCase() === tender.stateCode?.toLowerCase());
+    const vendorStateFallback = vendor.location?.split(',')[1]?.trim();
+    const vendorStates = vendor.operating_states || (vendorStateFallback ? [vendorStateFallback] : []);
+    const stateMatch = vendorStates.some((s: string) => s && (s.toLowerCase() === tenderState.toLowerCase() || s.toLowerCase() === tender.stateCode?.toLowerCase()));
 
     // 3. Turnover matching
     const tenderTurnoverReq = tender.eligibility?.turnoverRequirement || 0;
@@ -948,366 +949,7 @@ export const tenderService = {
     };
   },
 
-  // 10. Crawler Simulator with ChatGPT extraction and Vendor Matching
-  async triggerCrawlerRun(logCallback: (msg: string) => void): Promise<void> {
-    const states = ['Uttar Pradesh', 'Haryana', 'Madhya Pradesh', 'Rajasthan', 'Jharkhand', 'Uttarakhand', 'Maharashtra', 'Goa', 'Bihar'];
-    const codes = ['UP', 'HR', 'MP', 'RJ', 'JH', 'UT', 'MH', 'GA', 'BR'];
-    
-    const categories = ['Solar EPC', 'Roads & Highways', 'Water Supply', 'Civil Construction', 'Bridges', 'Sewerage', 'IT', 'Consultancy'];
-    
-    const rawTenderPool = [
-      {
-        title: "Installation of Rooftop Solar Panels on District Courts in MP",
-        description: "Executing solar rooftop grid tie systems of capacity 8MW on district court buildings across Indore, Bhopal and Jabalpur. Scope includes construction of reinforced structural mounting, electrical panels integration.",
-        estimatedValue: 135000000,
-        turnoverReq: 50000000,
-        expYears: 4,
-        category: "Solar EPC",
-        dept: "MPUVN",
-        sector: "Solar & Renewable",
-        authority: "Madhya Pradesh Urja Vikas Nigam (MPUVN)",
-        stateIndex: 2
-      },
-      {
-        title: "Construction of Drainage and Sewage Network in Ghaziabad Zone-2",
-        description: "Designing, laying, testing and commission of concrete sewerage pipe framework, trenching works, and domestic pipeline linkage across Ghaziabad District. Includes 3-year initial maintenance.",
-        estimatedValue: 180000000,
-        turnoverReq: 60000000,
-        expYears: 5,
-        category: "Sewerage",
-        dept: "Jal Nigam",
-        sector: "Water & Sewerage",
-        authority: "UP Jal Nigam",
-        stateIndex: 0
-      },
-      {
-        title: "Bridge Reconstruction over Yamuna Tributary in Faridabad",
-        description: "Demolishing dilapidated brick structure bridge and executing design-and-build of prestressed concrete slab bridge including approach roads on both sides of the canal.",
-        estimatedValue: 320000000,
-        turnoverReq: 100000000,
-        expYears: 6,
-        category: "Bridges",
-        dept: "Bridge Corporation",
-        sector: "Roads & Infrastructure",
-        authority: "Haryana State Bridge Corp",
-        stateIndex: 1
-      }
-    ];
 
-    const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-
-    logCallback("[SYSTEM] Initializing crawler pipeline at scheduled time (crawler interval: 4 hours)...");
-    await wait(800);
-    logCallback("[CPPP-CONNECTOR] Connecting to Central Public Procurement Portal CPPP API endpoint...");
-    await wait(800);
-    logCallback("[GEM-CONNECTOR] Opening WebSocket channel to Government e-Marketplace GeM...");
-    await wait(600);
-    logCallback("[STATE-CONNECTOR] Scoping 9 active State e-Procurement Portals (UP, HR, MP, RJ, JH, UT, MH, GA, BR)...");
-    await wait(1000);
-    
-    logCallback("[CRAWLER] Portals active. Fetching newly published RFPs, notices and tender notices...");
-    await wait(1200);
-
-    const randomTenderRaw = rawTenderPool[Math.floor(Math.random() * rawTenderPool.length)];
-    const randNum = `GEM/2026/B/${Math.floor(100000 + Math.random() * 900000)}`;
-
-    logCallback(`[CRAWLER] Found 1 matching active tender: "${randomTenderRaw.title}" (${randNum})`);
-    await wait(800);
-    logCallback(`[DOWNLOAD-ENGINE] Fetching tender PDF document and BOQ sheets...`);
-    await wait(1000);
-    logCallback(`[DOWNLOAD-ENGINE] Downloaded RFP_Specifications_${randNum}.pdf (4.8 MB) successfully.`);
-    await wait(600);
-
-    // Call Gemini API if Key is present
-    const geminiKey = import.meta.env.VITE_GEMINI_API_KEY;
-    let briefJson: any = null;
-
-    if (geminiKey) {
-      logCallback(`[GEMINI-AI] Found VITE_GEMINI_API_KEY. Sending downloaded PDF data (mock text payload) to Gemini for summarization and eligibility modeling...`);
-      try {
-        const prompt = `
-          Analyze the following government tender specifications and extract key details:
-          Tender Number: ${randNum}
-          Title: ${randomTenderRaw.title}
-          Description: ${randomTenderRaw.description}
-          Estimated Value: INR ${randomTenderRaw.estimatedValue}
-          Turnover Requirement: INR ${randomTenderRaw.turnoverReq}
-          Experience Requirement: ${randomTenderRaw.expYears} years
-          Department: ${randomTenderRaw.authority}
-          Category: ${randomTenderRaw.category}
-          State: ${states[randomTenderRaw.stateIndex]}
-          
-          Respond ONLY with a valid JSON block containing:
-          {
-            "natureOfWork": "Brief 1 sentence description of the nature of work",
-            "scope": "Summarized technical scope of the project",
-            "projectCategory": "Classification category matching",
-            "attractivenessScore": 85, // out of 100 based on value vs complexity
-            "easeOfQualificationScore": 70, // out of 100
-            "competitionRiskScore": 55, // out of 100
-            "executiveBrief": "A detailed executive brief about 200-300 words containing Project Overview, Commercial Snapshot, Eligibility Snapshot, Key Risks, and Recommended Vendor Type",
-            "keyRisks": ["Risk 1", "Risk 2", "Risk 3"],
-            "recommendedVendorType": "General description of ideal vendor"
-          }
-        `;
-
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-pro:generateContent?key=${geminiKey}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            contents: [
-              {
-                parts: [
-                  { text: prompt }
-                ]
-              }
-            ]
-          })
-        });
-
-        if (response.ok) {
-          const resJson = await response.json();
-          const rawText = resJson.candidates?.[0]?.content?.parts?.[0]?.text || "";
-          
-          // Clean JSON brackets in case markdown is returned
-          const jsonMatch = rawText.match(/\{[\s\S]*\}/);
-          if (jsonMatch) {
-            briefJson = JSON.parse(jsonMatch[0]);
-            logCallback(`[GEMINI-AI] AI Analysis parsed successfully.`);
-          }
-        }
-      } catch (err) {
-        console.error("Gemini call in crawler failed:", err);
-      }
-    }
-
-    if (!briefJson) {
-      logCallback(`[GEMINI-AI] Running local NLP summarizer module (fallback mode)...`);
-      await wait(1200);
-      briefJson = {
-        natureOfWork: `Design & engineering contract for ${randomTenderRaw.category} project.`,
-        scope: `${randomTenderRaw.description} Complete supply and layout services.`,
-        projectCategory: randomTenderRaw.category,
-        attractivenessScore: Math.floor(75 + Math.random() * 20),
-        easeOfQualificationScore: Math.floor(60 + Math.random() * 25),
-        competitionRiskScore: Math.floor(40 + Math.random() * 45),
-        executiveBrief: `Project Overview:\nThis project involves the execution of the ${randomTenderRaw.title} under the supervision of the ${randomTenderRaw.authority}. Works include setting up the technical framework, structural layout, installation, testing, and operation support.\n\nCommercial Snapshot:\nThe project has an estimated commercial footprint of INR ${(randomTenderRaw.estimatedValue / 10000000).toFixed(2)} Crores. EMD requirement is set at 2%.\n\nEligibility Snapshot:\nBidders require a minimum annual turnover of INR ${(randomTenderRaw.turnoverReq / 10000000).toFixed(2)} Crores and ${randomTenderRaw.expYears} years in similar works.\n\nKey Risks:\nPrimary risks stem from procurement supply-chains, local land permissions, and coordination with municipality electrical networks.\n\nRecommended Vendor Type:\nSuitable for a licensed contractor with regional operation centers.`,
-        keyRisks: ["Delay in regional layout clearances", "Supply chain lead times for certified steel elements", "Local integration coordination"],
-        recommendedVendorType: `Licensed Contractor in ${randomTenderRaw.category}`
-      };
-    }
-
-    // 1. Duplicate detection check (Tender Number, Department, Title)
-    logCallback(`[DUPLICATE-CHECKER] Querying database for Tender Number ${randNum}...`);
-    await wait(600);
-    
-    // Check local duplicate
-    const duplicateIndex = localTenders.findIndex(t => 
-      t.tenderNumber === randNum || 
-      (t.title === randomTenderRaw.title && t.authority === randomTenderRaw.authority)
-    );
-
-    const newTenderId = duplicateIndex >= 0 ? localTenders[duplicateIndex].id : `tnd_${Date.now()}`;
-    
-    const newTender: Tender = {
-      id: newTenderId,
-      tenderNumber: randNum,
-      title: randomTenderRaw.title,
-      description: randomTenderRaw.description,
-      estimatedValue: randomTenderRaw.estimatedValue,
-      emd: randomTenderRaw.estimatedValue * 0.02,
-      tenderFee: 10000,
-      performanceSecurity: "5% of contract value",
-      bidValidity: "90 days",
-      publishDate: new Date().toISOString(),
-      preBidDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),
-      submissionDeadline: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000).toISOString(), // 10 days
-      openingDate: new Date(Date.now() + 11 * 24 * 60 * 60 * 1000).toISOString(),
-      authority: randomTenderRaw.authority,
-      location: "Local Site",
-      district: "Capital District",
-      stateName: states[randomTenderRaw.stateIndex],
-      stateCode: codes[randomTenderRaw.stateIndex],
-      categoryName: randomTenderRaw.category,
-      departmentName: randomTenderRaw.dept,
-      sector: randomTenderRaw.sector,
-      status: "new", // starts as 'new' for admin review
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      documents: [
-        { id: `doc_${Date.now()}_1`, tenderId: newTenderId, fileName: `Specifications_${randNum}.pdf`, fileUrl: "#", createdAt: new Date().toISOString() }
-      ],
-      aiSummary: {
-        id: `ai_${Date.now()}`,
-        tenderId: newTenderId,
-        natureOfWork: briefJson.natureOfWork,
-        scope: briefJson.scope,
-        projectCategory: briefJson.projectCategory,
-        attractivenessScore: briefJson.attractivenessScore,
-        easeOfQualificationScore: briefJson.easeOfQualificationScore,
-        competitionRiskScore: briefJson.competitionRiskScore,
-        executiveBrief: briefJson.executiveBrief,
-        keyRisks: briefJson.keyRisks,
-        recommendedVendorType: briefJson.recommendedVendorType,
-        createdAt: new Date().toISOString()
-      },
-      eligibility: {
-        id: `elg_${Date.now()}`,
-        tenderId: newTenderId,
-        turnoverRequirement: randomTenderRaw.turnoverReq,
-        netWorthRequirement: randomTenderRaw.turnoverReq * 0.3,
-        similarExperienceYears: randomTenderRaw.expYears,
-        similarExperienceDescription: `Execution of at least two ${randomTenderRaw.category} projects in the last 5 years.`,
-        oemRequirements: "Standard ISO components required.",
-        jvAllowed: true,
-        consortiumAllowed: false,
-        eligibilitySummary: `Turnover: ${(randomTenderRaw.turnoverReq / 10000000).toFixed(2)} Cr. Experience: ${randomTenderRaw.expYears} yrs. JV allowed.`,
-        createdAt: new Date().toISOString()
-      }
-    };
-
-    if (duplicateIndex >= 0) {
-      logCallback(`[DUPLICATE-CHECKER] Duplicate found: "${randomTenderRaw.title}". Updating existing record in Database...`);
-      localTenders[duplicateIndex] = newTender;
-    } else {
-      logCallback(`[DATABASE] Registering tender in 'tenders' table...`);
-      localTenders.push(newTender);
-    }
-    await wait(600);
-
-    // 2. Vendor Matching Engine run
-    logCallback(`[MATCH-ENGINE] Executing matching engine against registered Vendor Profiles...`);
-    await wait(800);
-    
-    // Clear old matches for this tender
-    localMatches = localMatches.filter(m => m.tenderId !== newTenderId);
-    
-    // Match with database vendors or mockVendors
-    const vendors = mockVendors;
-    let matchCount = 0;
-    
-    vendors.forEach(vendor => {
-      const matchResult = this.calculateMatchScore(newTender, vendor);
-      
-      // Store matches with score > 40%
-      if (matchResult.score >= 40) {
-        localMatches.push({
-          id: `mtc_${newTenderId}_${vendor.id}`,
-          tenderId: newTenderId,
-          tenderNumber: newTender.tenderNumber,
-          tenderTitle: newTender.title,
-          vendorId: vendor.id,
-          vendorName: vendor.companyName,
-          matchScore: matchResult.score,
-          categoryMatch: matchResult.categoryMatch,
-          stateMatch: matchResult.stateMatch,
-          turnoverMatch: matchResult.turnoverMatch,
-          experienceMatch: matchResult.experienceMatch,
-          createdAt: new Date().toISOString()
-        });
-        matchCount++;
-      }
-    });
-
-    logCallback(`[MATCH-ENGINE] Successfully completed. Generated ${matchCount} matches against vendor capabilities list.`);
-    await wait(600);
-
-    // 3. Alerts Generation
-    logCallback(`[ALERT-ENGINE] Scanning deadline intervals for active alerts...`);
-    // Mock user profile to alert
-    localAlerts.push({
-      id: `alt_${Date.now()}`,
-      tenderId: newTenderId,
-      tenderNumber: newTender.tenderNumber,
-      tenderTitle: newTender.title,
-      profileId: "usr_2",
-      alertType: "7_days_left",
-      isRead: false,
-      createdAt: new Date().toISOString()
-    });
-    await wait(600);
-    logCallback(`[ALERT-ENGINE] Alert dispatch generated: relevant notifications scheduled for Admin & ${matchCount} matched vendors.`);
-
-    // 4. Save to remote Supabase tables if reachable
-    const supabase = getSupabaseClient();
-    if (supabase) {
-      logCallback(`[DATABASE] Synchronizing remote PostgreSQL database tables...`);
-      try {
-        // Fetch matching ids for state, department, and category
-        const { data: sData } = await supabase.from('tender_states').select('id').eq('name', newTender.stateName).maybeSingle();
-        const { data: cData } = await supabase.from('tender_categories').select('id').eq('name', newTender.categoryName).maybeSingle();
-        const { data: dData } = await supabase.from('tender_departments').select('id').eq('name', newTender.departmentName).maybeSingle();
-
-        const dbRecord = {
-          tender_number: newTender.tenderNumber,
-          title: newTender.title,
-          description: newTender.description,
-          department_id: dData?.id || null,
-          state_id: sData?.id || null,
-          category_id: cData?.id || null,
-          estimated_value: newTender.estimatedValue,
-          emd: newTender.emd,
-          tender_fee: newTender.tenderFee,
-          performance_security: newTender.performanceSecurity,
-          bid_validity: newTender.bidValidity,
-          publish_date: newTender.publishDate,
-          pre_bid_date: newTender.preBidDate,
-          submission_deadline: newTender.submissionDeadline,
-          opening_date: newTender.openingDate,
-          authority: newTender.authority,
-          location: newTender.location,
-          district: newTender.district,
-          status: newTender.status
-        };
-
-        const { data: insertedTender, error: tErr } = await supabase
-          .from('tenders')
-          .upsert([dbRecord], { onConflict: 'tender_number' })
-          .select('id')
-          .single();
-
-        if (!tErr && insertedTender) {
-          const finalTndId = insertedTender.id;
-          
-          // Insert AI summary
-          await supabase.from('tender_ai_summary').upsert([{
-            tender_id: finalTndId,
-            nature_of_work: newTender.aiSummary?.natureOfWork,
-            scope: newTender.aiSummary?.scope,
-            project_category: newTender.aiSummary?.projectCategory,
-            attractiveness_score: newTender.aiSummary?.attractivenessScore,
-            ease_of_qualification_score: newTender.aiSummary?.easeOfQualificationScore,
-            competition_risk_score: newTender.aiSummary?.competitionRiskScore,
-            executive_brief: newTender.aiSummary?.executiveBrief,
-            key_risks: newTender.aiSummary?.keyRisks,
-            recommended_vendor_type: newTender.aiSummary?.recommendedVendorType
-          }], { onConflict: 'tender_id' });
-
-          // Insert eligibility
-          await supabase.from('tender_eligibility').upsert([{
-            tender_id: finalTndId,
-            turnover_requirement: newTender.eligibility?.turnoverRequirement,
-            net_worth_requirement: newTender.eligibility?.netWorthRequirement,
-            similar_experience_years: newTender.eligibility?.similarExperienceYears,
-            similar_experience_description: newTender.eligibility?.similarExperienceDescription,
-            oem_requirements: newTender.eligibility?.oemRequirements,
-            jv_allowed: newTender.eligibility?.jvAllowed,
-            consortium_allowed: newTender.eligibility?.consortiumAllowed,
-            eligibility_summary: newTender.eligibility?.eligibilitySummary
-          }], { onConflict: 'tender_id' });
-
-          logCallback(`[DATABASE] Supabase tables synchronized successfully.`);
-        }
-      } catch (err) {
-        logCallback(`[DATABASE] Sync notice: PostgreSQL tables write bypassed (locally cached in-memory instead).`);
-      }
-    }
-    
-    await wait(600);
-    logCallback("[SYSTEM] Sync complete! Crawler pipeline sleeping. Next run in 4 hours.");
-  },
 
   // 11. Admin helper to approve/reject a New Tender
   async updateTenderStatus(id: string, status: TenderStatus): Promise<boolean> {

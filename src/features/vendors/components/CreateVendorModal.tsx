@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { Avatar } from "@/components/ui/Avatar";
 import { toast } from "sonner";
 import { UploadCloud, FileText, CheckCircle, AlertCircle, Camera, X } from "lucide-react";
-import { type VendorProfile } from "../data/mockVendors";
+import { type VendorProfile } from "../data/vendorTypes";
 import { useVendorStore } from "@/store/vendorStore";
 
 const vendorSchema = z.object({

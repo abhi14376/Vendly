@@ -1,2 +1,2 @@
 export const API_BASE_URL = "/api/v1";
-export const APP_NAME = "Vendly";
+export const APP_NAME = "BidTracker";

@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Check, X, Search, Filter, ShieldCheck, Clock, XCircle, CheckCircle2, Circle } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -10,7 +10,7 @@ import { Modal, ModalContent, ModalDescription, ModalFooter, ModalHeader, ModalT
 import { Pagination } from "@/components/ui/Pagination";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { useVendorStore } from "@/store/vendorStore";
-import type { VendorDocuments } from "@/features/vendors/data/mockVendors";
+import type { VendorDocuments } from "@/features/vendors/data/vendorTypes";
 
 const DOC_LABELS: { key: keyof VendorDocuments; label: string }[] = [
   { key: "gst",      label: "GST Cert" },
@@ -21,6 +21,11 @@ const DOC_LABELS: { key: keyof VendorDocuments; label: string }[] = [
 export function VendorVerificationPage() {
   const vendors      = useVendorStore((state) => state.vendors);
   const updateStatus = useVendorStore((state) => state.updateStatus);
+  const fetchVendors = useVendorStore((state) => state.fetchVendors);
+
+  useEffect(() => {
+    fetchVendors();
+  }, [fetchVendors]);
 
   const [searchTerm,      setSearchTerm]      = useState("");
   const [statusFilter,    setStatusFilter]    = useState("all");

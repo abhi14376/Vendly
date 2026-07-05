@@ -67,7 +67,7 @@ export function TheLeadPage() {
       <section className="relative max-w-7xl mx-auto px-4">
         <div className="text-center space-y-4 mb-16">
           <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
-            Why Publish on Vendly?
+            Why Publish on BidTracker?
           </h2>
           <p className="mx-auto max-w-2xl text-slate-500 dark:text-slate-400">
             A comprehensive, digital-first system designed to bring trust and efficiency back to B2B procurement.
@@ -129,7 +129,7 @@ export function TheLeadPage() {
                     <span className="h-3 w-3 rounded-full bg-slate-300 dark:bg-slate-700" />
                     <span className="h-3 w-3 rounded-full bg-slate-300 dark:bg-slate-700" />
                   </div>
-                  <div className="mx-auto text-[11px] text-slate-400">vendly.com/dashboard/settings</div>
+                  <div className="mx-auto text-[11px] text-slate-400">bidtracker.com/dashboard/settings</div>
                 </div>
                 <div className="p-6 bg-slate-50/50 dark:bg-slate-900/30 space-y-4">
                   <div className="flex items-center justify-between border-b border-slate-100 pb-4 dark:border-slate-800">
@@ -203,7 +203,7 @@ export function TheLeadPage() {
                     <span className="h-3 w-3 rounded-full bg-slate-300 dark:bg-slate-700" />
                     <span className="h-3 w-3 rounded-full bg-slate-300 dark:bg-slate-700" />
                   </div>
-                  <div className="mx-auto text-[11px] text-slate-400">vendly.com/admin/opportunities/new</div>
+                  <div className="mx-auto text-[11px] text-slate-400">bidtracker.com/admin/opportunities/new</div>
                 </div>
                 <div className="p-6 bg-slate-50/50 dark:bg-slate-900/30 space-y-4">
                   <div className="flex items-center justify-between border-b border-slate-100 pb-2 dark:border-slate-800">
@@ -287,7 +287,7 @@ export function TheLeadPage() {
                     <span className="h-3 w-3 rounded-full bg-slate-300 dark:bg-slate-700" />
                     <span className="h-3 w-3 rounded-full bg-slate-300 dark:bg-slate-700" />
                   </div>
-                  <div className="mx-auto text-[11px] text-slate-400">vendly.com/dashboard/opportunities/metro-station-civil/applications</div>
+                  <div className="mx-auto text-[11px] text-slate-400">bidtracker.com/dashboard/opportunities/metro-station-civil/applications</div>
                 </div>
                 <div className="p-6 bg-slate-50/50 dark:bg-slate-900/30 space-y-4">
                   <div className="flex items-center justify-between border-b border-slate-100 pb-2 dark:border-slate-800">

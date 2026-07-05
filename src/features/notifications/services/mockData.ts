@@ -63,7 +63,7 @@ export const MOCK_NOTIFICATIONS: Notification[] = [
   {
     id: "notif-8",
     type: "system",
-    title: "Welcome to Vendly!",
+    title: "Welcome to BidTracker!",
     message: "Complete your profile to get started.",
     createdAt: new Date(Date.now() - 1000 * 60 * 60 * 240).toISOString(), // 10 days ago
     isRead: true,

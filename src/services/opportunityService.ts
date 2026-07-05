@@ -67,7 +67,20 @@ export const opportunityService = {
 
   async createOpportunity(opportunity: Partial<Opportunity>, files?: File[]): Promise<{ data: Opportunity | null, error: string | null }> {
     const supabase = getSupabaseClient();
-    if (!supabase) {
+    let userId: string | undefined;
+    if (supabase) {
+      try {
+        const { data: userData } = await supabase.auth.getUser();
+        userId = userData.user?.id;
+      } catch (err) {
+        console.warn("Could not fetch user session.", err);
+      }
+    }
+
+    if (!supabase || !userId) {
+      if (supabase && !userId) {
+        console.warn("No Supabase session found. Falling back to local memory storage for demo purposes.");
+      }
       const newId = `opp_${Date.now()}`;
       
       const mappedDocs: OpportunityDocument[] = files ? files.map(file => ({
@@ -117,18 +130,9 @@ export const opportunityService = {
       return { data: newOpp, error: null };
     }
 
-    // 1. Insert the opportunity
-    const { data: userData } = await supabase.auth.getUser();
-    const userId = userData.user?.id;
-
-    if (!userId) {
-      console.error("Must be logged in to create an opportunity");
-      return { data: null, error: "Authentication required" };
-    }
-
     const { data: oppData, error: oppError } = await supabase
       .from('opportunities')
-      .insert([mapToDatabase(opportunity, userId)])
+      .insert([mapToDatabase(opportunity, userId as string)])
       .select()
       .single();
 

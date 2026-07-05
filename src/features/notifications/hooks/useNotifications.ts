@@ -32,7 +32,7 @@ export function useNotifications() {
       setIsLoading(true);
       await new Promise((resolve) => setTimeout(resolve, 400));
 
-      const localKey = currentUser ? `vendly-notifications-${currentUser.email}` : "";
+      const localKey = currentUser ? `bidtracker-notifications-${currentUser.email}` : "";
       let localNotifs: Notification[] = [];
       if (localKey) {
         try {

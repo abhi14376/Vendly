@@ -22,7 +22,7 @@ export function Footer() {
               <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform duration-300">
                 <Shield className="h-5 w-5" />
               </div>
-              <span className="tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">Vendly</span>
+              <span className="tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">BidTracker</span>
             </Link>
             <p className="text-sm text-slate-400 leading-relaxed max-w-xs">
               A verification-first B2B marketplace digitizing project procurement, removing operational friction, and establishing absolute trust.
@@ -108,7 +108,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-slate-500">
           <p className="text-center sm:text-left">
-            &copy; {currentYear} Vendly Inc. All rights reserved. B2B Sourcing made transparent.
+            &copy; {currentYear} BidTracker Inc. All rights reserved. B2B Sourcing made transparent.
           </p>
           <div className="flex items-center gap-4 text-center sm:text-right">
             <span className="hover:text-slate-400 transition-colors">SSL Encrypted Secure</span>

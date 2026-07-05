@@ -15,9 +15,9 @@ export function SignupPage() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const login = useAuthStore((state) => state.login);
-
   const [searchParams] = useSearchParams();
-  const roleParam = searchParams.get("role") === "admin" ? "admin" : "lead";
+  const roleQuery = searchParams.get("role");
+  const roleParam = roleQuery === "admin" ? "admin" : roleQuery === "vendor" ? "vendor" : "lead";
 
   const [step, setStep] = useState<"signup" | "verification">("signup");
   const [pendingData, setPendingData] = useState<SignupFormValues | null>(null);
@@ -98,7 +98,7 @@ export function SignupPage() {
     // Helper to store registration locally as sandbox fallback
     const saveLocalUser = () => {
       try {
-        const localUsers = JSON.parse(localStorage.getItem("vendly-local-users") || "[]");
+        const localUsers = JSON.parse(localStorage.getItem("bidtracker-local-users") || "[]");
         if (!localUsers.some((u: any) => u.email === data.email)) {
           localUsers.push({
             email: data.email,
@@ -108,11 +108,11 @@ export function SignupPage() {
             role: roleParam,
             verificationStatus: "pending",
           });
-          localStorage.setItem("vendly-local-users", JSON.stringify(localUsers));
+          localStorage.setItem("bidtracker-local-users", JSON.stringify(localUsers));
         }
 
         // Save verification request for Admin
-        const leadVerifications = JSON.parse(localStorage.getItem("vendly-lead-verifications") || "[]");
+        const leadVerifications = JSON.parse(localStorage.getItem("bidtracker-lead-verifications") || "[]");
         if (!leadVerifications.some((v: any) => v.email === data.email)) {
           leadVerifications.push({
             id: `lv-${Date.now()}`,
@@ -123,7 +123,7 @@ export function SignupPage() {
             status: "pending",
             submittedAt: new Date().toISOString(),
           });
-          localStorage.setItem("vendly-lead-verifications", JSON.stringify(leadVerifications));
+          localStorage.setItem("bidtracker-lead-verifications", JSON.stringify(leadVerifications));
         }
       } catch (e) {
         console.error("Failed to save local sandbox user", e);

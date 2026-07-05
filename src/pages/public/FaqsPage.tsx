@@ -9,13 +9,13 @@ export function FaqsPage() {
   const faqs = [
     {
       category: "General",
-      question: "What is Vendly?",
-      answer: "Vendly is a verification-first B2B marketplace that connects companies looking to award project subcontracts or tenders (Leads) with qualified, vetted service providers (Vendors)."
+      question: "What is BidTracker?",
+      answer: "BidTracker is a verification-first B2B marketplace that connects companies looking to award project subcontracts or tenders (Leads) with qualified, vetted service providers (Vendors)."
     },
     {
       category: "Verification",
       question: "How does the verification process work?",
-      answer: "All profiles registered on Vendly are manually verified by platform administrators. Leads must upload corporate documentation (like GSTIN certificates) and verify their company domains, while Vendors submit certifications, company profiles, and experience files to ensure maximum safety and trust."
+      answer: "All profiles registered on BidTracker are manually verified by platform administrators. Leads must upload corporate documentation (like GSTIN certificates) and verify their company domains, while Vendors submit certifications, company profiles, and experience files to ensure maximum safety and trust."
     },
     {
       category: "Opportunities",
@@ -24,18 +24,18 @@ export function FaqsPage() {
     },
     {
       category: "Opportunities",
-      question: "Who can publish opportunities on Vendly?",
-      answer: "Only verified Leads and platform Administrators are allowed to publish projects. This guarantees that all active opportunities on Vendly are legitimate, funded, and ready for execution."
+      question: "Who can publish opportunities on BidTracker?",
+      answer: "Only verified Leads and platform Administrators are allowed to publish projects. This guarantees that all active opportunities on BidTracker are legitimate, funded, and ready for execution."
     },
     {
       category: "Security & Privacy",
       question: "Are our uploaded documents safe?",
-      answer: "Yes. Vendly utilizes Supabase storage bucket policies and Row Level Security (RLS). This ensures that only authorized administrators and the respective bidders can see submitted opportunity documents and proposals."
+      answer: "Yes. BidTracker utilizes Supabase storage bucket policies and Row Level Security (RLS). This ensures that only authorized administrators and the respective bidders can see submitted opportunity documents and proposals."
     },
     {
       category: "Bidding & Communication",
       question: "How do I communicate with vendors regarding a project?",
-      answer: "Vendly provides a central Query system. Leads can view questions submitted by vendors for specific opportunities, reply publicly or privately within threaded boards, and resolve queries without leaving the platform."
+      answer: "BidTracker provides a central Query system. Leads can view questions submitted by vendors for specific opportunities, reply publicly or privately within threaded boards, and resolve queries without leaving the platform."
     }
   ];
 
@@ -60,7 +60,7 @@ export function FaqsPage() {
           Frequently Asked Questions
         </h1>
         <p className="max-w-2xl mx-auto text-slate-500 dark:text-slate-400">
-          Got questions? We have got answers. Search below or browse categories to learn more about how Vendly works.
+          Got questions? We have got answers. Search below or browse categories to learn more about how BidTracker works.
         </p>
       </div>
 

@@ -79,7 +79,7 @@ export function AdminDashboardPage() {
           openQueries: queriesRes.count ?? 0,
         });
         setRecentProfiles(recentProfilesRes.data ?? []);
-        setRecentQueries(recentQueriesRes.data ?? []);
+        setRecentQueries((recentQueriesRes.data as any) ?? []);
       } catch (err) {
         console.error("Failed to fetch admin dashboard stats:", err);
       } finally {

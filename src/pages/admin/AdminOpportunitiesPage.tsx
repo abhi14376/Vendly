@@ -30,6 +30,7 @@ import {
 } from "lucide-react";
 import { useSearchParams, useNavigate } from "react-router";
 import { tenderService } from "@/services/tenderService";
+import { addLeadMatchedVendor } from "@/services/leadMatchedVendorsStore";
 import { Tender, TenderMatch, TenderAlert, TenderCorrigendum, TenderAward, TenderStatus } from "@/types/Tender";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -62,12 +63,7 @@ export function AdminOpportunitiesPage() {
   // UI Control States
   const [selectedTender, setSelectedTender] = useState<Tender | null>(null);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
-  const [isCrawlerOpen, setIsCrawlerOpen] = useState(false);
-  const [crawlerLogs, setCrawlerLogs] = useState<string[]>([]);
-  const [isCrawling, setIsCrawling] = useState(false);
-  const logContainerRef = useRef<HTMLDivElement>(null);
 
-  // Load Data
   const loadData = async () => {
     setIsLoading(true);
     try {
@@ -102,13 +98,6 @@ export function AdminOpportunitiesPage() {
     loadData();
   }, [activeTab, stateFilter, deptFilter, categoryFilter, minBudget, maxBudget, searchTerm]);
 
-  // Scroll crawler logs to bottom
-  useEffect(() => {
-    if (logContainerRef.current) {
-      logContainerRef.current.scrollTop = logContainerRef.current.scrollHeight;
-    }
-  }, [crawlerLogs]);
-
   // Submenu configuration
   const tabs = [
     { id: "new-tenders", label: "New Tenders", count: tenders.filter(t => t.status === "new").length },
@@ -141,26 +130,6 @@ export function AdminOpportunitiesPage() {
     setSearchParams({ tab: tabId });
   };
 
-  // Run Crawler Simulation
-  const handleRunCrawler = async () => {
-    if (isCrawling) return;
-    setIsCrawling(true);
-    setIsCrawlerOpen(true);
-    setCrawlerLogs([]);
-
-    try {
-      await tenderService.triggerCrawlerRun((msg) => {
-        setCrawlerLogs(prev => [...prev, msg]);
-      });
-      toast.success("Crawler Sync Complete! Found new tenders, verified matching eligibility.");
-      loadData();
-    } catch (err) {
-      toast.error("Crawler Sync Encountered an Error.");
-    } finally {
-      setIsCrawling(false);
-    }
-  };
-
   // Approve a newly discovered tender to active
   const handleApproveTender = async (id: string) => {
     const ok = await tenderService.updateTenderStatus(id, "active");
@@ -181,7 +150,12 @@ export function AdminOpportunitiesPage() {
 
   // Dispatch manual notification to matched vendor
   const handleSendMatchAlert = (match: TenderMatch) => {
-    toast.success(`Match alert dispatched successfully to ${match.vendorName}!`);
+    const hash = match.vendorId.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    const leads = ['Rahul Sharma', 'Priya Patel', 'Amit Kumar', 'Sneha Gupta', 'Vikram Singh'];
+    const leadName = leads[hash % leads.length];
+    
+    addLeadMatchedVendor(match);
+    toast.success(`Match alert dispatched successfully to Lead (${leadName}) for vendor ${match.vendorName}!`);
   };
 
   // Formatting currency helper
@@ -208,10 +182,9 @@ export function AdminOpportunitiesPage() {
             </h1>
           </div>
           <p className="text-slate-400 text-sm max-w-xl">
-            Automated crawler pipeline scanning GeM, CPPP, and state procurement hubs every 4 hours. Processed via Gemini AI models.
+            Tender intelligence platform powered by AI.
           </p>
         </div>
-
         <div className="relative z-10 flex flex-wrap gap-2 shrink-0">
           <Button 
             onClick={() => navigate("/admin/opportunities/new")}
@@ -219,28 +192,6 @@ export function AdminOpportunitiesPage() {
             className="border-indigo-900 bg-indigo-950/20 text-indigo-300 hover:bg-indigo-950/60"
           >
             <Plus className="size-4 mr-2" /> Create Opportunity
-          </Button>
-          <Button 
-            onClick={() => setIsCrawlerOpen(!isCrawlerOpen)}
-            variant="outline" 
-            className="border-indigo-900 bg-indigo-950/20 text-indigo-300 hover:bg-indigo-950/60"
-          >
-            <Activity className="size-4 mr-2" /> Pipeline Console
-          </Button>
-          <Button 
-            onClick={handleRunCrawler}
-            disabled={isCrawling}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold shadow-lg shadow-indigo-500/20"
-          >
-            {isCrawling ? (
-              <>
-                <RefreshCw className="size-4 mr-2 animate-spin" /> Syncing Tenders...
-              </>
-            ) : (
-              <>
-                <Play className="size-4 mr-2 fill-current" /> Run Crawlers
-              </>
-            )}
           </Button>
         </div>
       </div>
@@ -270,52 +221,6 @@ export function AdminOpportunitiesPage() {
         ))}
       </div>
 
-      {/* Crawler Logs Live Panel */}
-      {isCrawlerOpen && (
-        <div className="rounded-2xl border border-slate-800 bg-slate-950 shadow-2xl p-5 overflow-hidden transition-all duration-300">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
-            <div className="flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
-              <h3 className="font-mono text-sm font-semibold text-slate-200">Pipeline Scheduler & Console Logs</h3>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="text-xs text-slate-500 font-mono">00:00 | 04:00 | 08:00 | 12:00 | 16:00 | 20:00</span>
-              <button 
-                onClick={() => setIsCrawlerOpen(false)}
-                className="text-slate-500 hover:text-slate-300"
-              >
-                <X className="size-4" />
-              </button>
-            </div>
-          </div>
-          
-          <div 
-            ref={logContainerRef}
-            className="bg-slate-900 border border-slate-850 rounded-xl p-4 h-60 overflow-y-auto font-mono text-xs text-emerald-400 space-y-1.5 shadow-inner"
-          >
-            {crawlerLogs.length === 0 ? (
-              <div className="text-slate-500 italic py-10 text-center">
-                Console idle. Click "Run Crawlers" to trigger pipeline execution and view real-time log output.
-              </div>
-            ) : (
-              crawlerLogs.map((log, idx) => (
-                <div key={idx} className="flex gap-2">
-                  <span className="text-slate-600 select-none">[{new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}]</span>
-                  <span className={log.startsWith("[SYSTEM]") ? "text-indigo-400" : log.startsWith("[GEMINI") ? "text-amber-400 font-bold" : log.startsWith("[DATABASE") ? "text-sky-400" : ""}>
-                    {log}
-                  </span>
-                </div>
-              ))
-            )}
-            {isCrawling && (
-              <div className="flex items-center gap-1.5 text-emerald-500 italic pt-1">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                Processing data node stream...
-              </div>
-            )}
-          </div>
-        </div>
-      )}
 
       {/* Tabs Menu bar */}
       <div className="border-b border-slate-200 dark:border-slate-800">
@@ -912,6 +817,7 @@ export function AdminOpportunitiesPage() {
                         <TableRow>
                           <TableHead>Tender Reference</TableHead>
                           <TableHead>Matching Vendor</TableHead>
+                          <TableHead>Lead</TableHead>
                           <TableHead>Match Score</TableHead>
                           <TableHead>Matching Criteria Breakdown</TableHead>
                           <TableHead className="text-right">Actions</TableHead>
@@ -936,6 +842,13 @@ export function AdminOpportunitiesPage() {
                               <TableCell>
                                 <div className="font-bold text-slate-800 dark:text-white">{m.vendorName}</div>
                                 <div className="text-[10px] text-slate-400">ID: {m.vendorId}</div>
+                              </TableCell>
+                              <TableCell>
+                                <div className="font-medium text-slate-700 dark:text-slate-300">
+                                  {['Rahul Sharma', 'Priya Patel', 'Amit Kumar', 'Sneha Gupta', 'Vikram Singh'][
+                                    m.vendorId.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 5
+                                  ]}
+                                </div>
                               </TableCell>
                               <TableCell>
                                 <span className={`inline-flex items-center text-xs font-bold px-2 py-0.5 rounded border ${scoreColor}`}>

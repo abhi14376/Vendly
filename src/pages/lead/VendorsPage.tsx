@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/Pagination";
 import { CreateVendorModal } from "@/features/vendors/components/CreateVendorModal";
 import { useVendorStore } from "@/store/vendorStore";
-import type { VerificationStatus, VendorDocuments } from "@/features/vendors/data/mockVendors";
+import type { VerificationStatus, VendorDocuments } from "@/features/vendors/data/vendorTypes";
 import { cn } from "@/utils/cn";
 
 // ── Document checklist shown on each vendor card/row ─────────────────────────
@@ -75,12 +75,17 @@ function StatusBadge({ status }: { status: VerificationStatus }) {
 // ── Page ──────────────────────────────────────────────────────────────────────
 export function VendorsPage() {
   const vendors = useVendorStore((state) => state.vendors);
+  const fetchVendors = useVendorStore((state) => state.fetchVendors);
+
+  useEffect(() => {
+    fetchVendors();
+  }, [fetchVendors]);
 
   const [isLoading, setIsLoading] = useState(true);
   const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
   const [search, setSearch] = useState("");
   const [industryFilter, setIndustryFilter] = useState("All");
-  const [statusFilter, setStatusFilter] = useState("All");
+  const [statusFilter, setStatusFilter] = useState("Approved");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;

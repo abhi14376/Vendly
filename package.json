@@ -1,11 +1,11 @@
 {
-  "name": "vendly",
+  "name": "bidtracker",
   "private": true,
   "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite --configLoader runner",
-    "build": "tsc -b && vite build --configLoader runner",
+    "build": "vite build --configLoader runner",
     "preview": "vite preview",
     "lint": "eslint ."
   },

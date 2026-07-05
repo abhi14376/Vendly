@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/Button";
 import { useAuthStore } from "@/store/authStore";
 import { useShareStore } from "@/features/opportunities/store/useShareStore";
 import { useApplicationStore } from "@/features/opportunities/store/useApplicationStore";
-import { mockOpportunities } from "@/lib/mockOpportunities";
+
 import { formatCurrency } from "@/utils/formatCurrency";
 import { Calendar, IndianRupee, Share2, Briefcase, FileCheck2, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router";
@@ -19,12 +19,12 @@ export function VendorDashboardPage() {
   const vendorId = currentUser?.id || "demo-vendor-id";
 
   // Filter opportunities shared by lead
-  const sharedOpportunities = mockOpportunities.filter((opp) =>
+  const sharedOpportunities = ([] as any[]).filter((opp) =>
     isOpportunityShared(vendorId, opp.id)
   );
 
   // Filter applied opportunities
-  const appliedOpportunities = mockOpportunities.filter((opp) =>
+  const appliedOpportunities = ([] as any[]).filter((opp) =>
     appliedOpportunityIds.includes(opp.id)
   );
 
@@ -70,7 +70,7 @@ export function VendorDashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {mockOpportunities.filter(o => o.status === "Open").length}
+              {([] as any[]).filter(o => o.status === "Open").length}
             </div>
             <p className="text-xs text-slate-500 mt-1">Active market opportunities</p>
           </CardContent>

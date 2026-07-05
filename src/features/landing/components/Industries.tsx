@@ -19,7 +19,7 @@ export function Industries() {
               Trusted across all major industries.
             </h2>
             <p className="mt-4 text-left text-lg text-slate-500 dark:text-slate-400">
-              No matter what you're building or sourcing, Vendly has pre-verified vendors ready to bid on your projects.
+              No matter what you're building or sourcing, BidTracker has pre-verified vendors ready to bid on your projects.
             </p>
             <div className="mt-8 flex gap-4">
               <div className="flex flex-col">

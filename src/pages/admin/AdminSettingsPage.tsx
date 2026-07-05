@@ -22,7 +22,7 @@ export function AdminSettingsPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-50">Platform Settings</h1>
-        <p className="text-slate-500 dark:text-slate-400">Manage global configuration for the Vendly platform.</p>
+        <p className="text-slate-500 dark:text-slate-400">Manage global configuration for the BidTracker platform.</p>
       </div>
 
       <div className="flex flex-col gap-6 md:flex-row">
@@ -84,11 +84,11 @@ export function AdminSettingsPage() {
               <div className="space-y-4">
                 <div className="space-y-1.5">
                   <label htmlFor="platform-name" className="text-sm font-medium text-slate-700 dark:text-slate-300">Platform Name</label>
-                  <Input id="platform-name" defaultValue="Vendly" />
+                  <Input id="platform-name" defaultValue="BidTracker" />
                 </div>
                 <div className="space-y-1.5">
                   <label htmlFor="support-email" className="text-sm font-medium text-slate-700 dark:text-slate-300">Support Email</label>
-                  <Input id="support-email" defaultValue="support@vendly.com" type="email" />
+                  <Input id="support-email" defaultValue="support@bidtracker.com" type="email" />
                 </div>
                 <div className="space-y-1.5">
                   <label htmlFor="maintenance-mode" className="flex items-center gap-2">
@@ -152,11 +152,11 @@ export function AdminSettingsPage() {
               <div className="space-y-4">
                 <div className="space-y-1.5">
                   <label htmlFor="welcome-subject" className="text-sm font-medium text-slate-700 dark:text-slate-300">Welcome Email Subject</label>
-                  <Input id="welcome-subject" defaultValue="Welcome to Vendly!" />
+                  <Input id="welcome-subject" defaultValue="Welcome to BidTracker!" />
                 </div>
                 <div className="space-y-1.5">
                   <label htmlFor="welcome-body" className="text-sm font-medium text-slate-700 dark:text-slate-300">Welcome Email Body</label>
-                  <Textarea id="welcome-body" rows={6} defaultValue="Hi {{name}},\n\nWelcome to Vendly! We're excited to have you on board.\n\nPlease complete your profile to get started.\n\nThanks,\nThe Vendly Team" />
+                  <Textarea id="welcome-body" rows={6} defaultValue="Hi {{name}},\n\nWelcome to BidTracker! We're excited to have you on board.\n\nPlease complete your profile to get started.\n\nThanks,\nThe BidTracker Team" />
                 </div>
               </div>
             </Card>

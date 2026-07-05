@@ -44,7 +44,7 @@ export function Features() {
             Everything you need to manage vendors
           </p>
           <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-slate-500 dark:text-slate-400">
-            Vendly is built from the ground up to streamline the B2B procurement lifecycle for modern businesses.
+            BidTracker is built from the ground up to streamline the B2B procurement lifecycle for modern businesses.
           </p>
         </div>
 

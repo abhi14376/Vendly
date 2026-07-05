@@ -1,6 +1,6 @@
 import { CheckCircle2 } from "lucide-react";
 
-export function WhyVendly() {
+export function WhyBidTracker() {
   const benefits = [
     "Reduce procurement cycles by up to 60%",
     "Eliminate fraudulent vendors with our AI verification",
@@ -14,9 +14,9 @@ export function WhyVendly() {
     <section className="bg-slate-900 py-24 text-white sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl font-extrabold sm:text-4xl">Why Choose Vendly?</h2>
+          <h2 className="text-3xl font-extrabold sm:text-4xl">Why Choose BidTracker?</h2>
           <p className="mt-4 text-center text-lg text-slate-300">
-            We built Vendly because traditional procurement is broken. Emails get lost, spreadsheets get messy, and finding good vendors is too hard.
+            We built BidTracker because traditional procurement is broken. Emails get lost, spreadsheets get messy, and finding good vendors is too hard.
           </p>
         </div>
         <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">

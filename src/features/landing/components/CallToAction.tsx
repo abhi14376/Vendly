@@ -11,7 +11,7 @@ export function CallToAction() {
           Ready to revolutionize your procurement?
         </h2>
         <p className="mt-4 text-lg text-primary-100">
-          Join thousands of leads and vendors already using Vendly to streamline their projects and grow their businesses.
+          Join thousands of leads and vendors already using BidTracker to streamline their projects and grow their businesses.
         </p>
         <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Button asChild size="default" variant="secondary" className="w-full text-primary-700 sm:w-auto">

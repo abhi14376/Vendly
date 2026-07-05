@@ -18,7 +18,7 @@ export const publicNavigation = [
   { href: "/", label: "Home" },
   { href: "/the-lead", label: "The Lead" },
   { href: "/faqs", label: "FAQs" },
-  { href: "/about", label: "About Vendly" },
+  { href: "/about", label: "About BidTracker" },
 ];
 
 export const leadNavigation: NavigationItem[] = [

@@ -1,13 +1,13 @@
 import { CreateQueryDto, Query, QueryMessage } from '../types';
-import { mockQueries, mockMessages } from './mockData';
+
 import { useAuthStore } from '@/store/authStore';
 
 // Simulated delay for realistic API behavior
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 class QueryService {
-  private queries = [...mockQueries];
-  private messages = [...mockMessages];
+  private queries: any[] = [];
+  private messages: any[] = [];
 
   async getQueries(params?: { search?: string; page?: number; limit?: number }) {
     await delay(600);
