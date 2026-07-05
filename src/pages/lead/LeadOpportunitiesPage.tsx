@@ -128,6 +128,11 @@ export function LeadOpportunitiesPage() {
             Manage and track your active sourcing opportunities.
           </p>
         </div>
+        <div className="flex shrink-0">
+          <Button onClick={() => navigate("/admin/opportunities/new")} className="w-full sm:w-auto">
+            <Plus className="size-4 mr-2" /> New Opportunity
+          </Button>
+        </div>
       </div>
 
       {/* ── Toolbar ── */}
