@@ -31,10 +31,10 @@ export function DashboardLayout({ label, navigation, variant }: DashboardLayoutP
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 flex flex-col justify-between">
-      <div className="mx-auto flex flex-1 w-full max-w-dashboard gap-6 px-4 py-4 sm:px-6 lg:px-10">
+    <div className="h-screen overflow-hidden bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 flex flex-col justify-between">
+      <div className="mx-auto flex flex-1 w-full max-w-dashboard gap-6 px-4 py-4 sm:px-6 lg:px-10 overflow-hidden">
         <Sidebar navigation={navigation} variant={variant} />
-        <div className="flex min-w-0 flex-1 flex-col">
+        <div className="flex min-w-0 flex-1 flex-col overflow-y-auto rounded-xl">
           <header className="sticky top-0 z-sticky flex h-16 items-center gap-3 border-b border-slate-200 bg-white/80 backdrop-blur-md dark:border-slate-800/80 dark:bg-slate-900/80 lg:h-[72px]">
             <Button
               type="button"

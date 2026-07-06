@@ -19,17 +19,15 @@ export function Sidebar({ navigation, variant }: SidebarProps) {
 
   return (
     <aside
-      className={`fixed inset-y-0 left-0 z-drawer w-[280px] -translate-x-full p-4 transition-transform lg:sticky lg:top-4 lg:h-[calc(100vh-32px)] lg:translate-x-0 ${
+      className={`fixed inset-y-0 left-0 z-drawer w-[280px] -translate-x-full transition-transform lg:relative lg:translate-x-0 h-full ${
         mobileMenuOpen ? "translate-x-0" : ""
       } ${sidebarCollapsed ? "lg:w-[88px]" : "lg:w-[280px]"}`}
       aria-label={`${variant} navigation`}
     >
       <div
-        className={`flex h-full flex-col rounded-xl border p-4 shadow-md ${
-          isAdmin
-            ? "border-white/20 bg-white/75 backdrop-blur dark:border-slate-700/60 dark:bg-slate-900/75"
-            : "border-slate-800 bg-slate-900 text-white"
-        }`}
+        className={`flex h-full flex-col rounded-2xl border shadow-lg backdrop-blur-xl transition-all duration-300 p-4
+          bg-indigo-50/60 border-indigo-200/60 dark:bg-indigo-950/40 dark:border-indigo-800/50 text-slate-900 dark:text-white
+        `}
       >
         <div className="flex items-center justify-between gap-3">
           <BrandLogo compact={sidebarCollapsed} inverse={!isAdmin} />
@@ -57,14 +55,10 @@ export function Sidebar({ navigation, variant }: SidebarProps) {
                   end={item.href === "/dashboard" || item.href === "/admin"}
                   onClick={closeMobileMenu}
                   className={({ isActive }) =>
-                    `flex min-h-11 items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                    `flex min-h-11 items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition-all duration-300 ${
                       isActive || (hasChildren && isParentActive)
-                        ? isAdmin
-                          ? "bg-primary-600 text-white"
-                          : "bg-white text-slate-900"
-                        : isAdmin
-                          ? "text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
-                          : "text-slate-300 hover:bg-slate-800 hover:text-white"
+                        ? "bg-primary-600 text-white shadow-md"
+                        : "text-slate-700 hover:bg-indigo-100/50 dark:text-slate-300 dark:hover:bg-indigo-900/50 hover:text-primary-700 dark:hover:text-primary-300"
                     } ${sidebarCollapsed ? "lg:justify-center" : ""}`
                   }
                 >
