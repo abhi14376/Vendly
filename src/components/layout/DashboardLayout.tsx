@@ -72,16 +72,27 @@ export function DashboardLayout({ label, navigation, variant }: DashboardLayoutP
                   {currentUser?.verificationStatus === "approved" && (
                     <CheckCircle2 className="size-3.5 fill-primary-500 text-white dark:fill-primary-400 dark:text-slate-900 shrink-0" aria-label="Verified user" />
                   )}
-                  <span className="truncate max-w-[120px]">{currentUser?.fullName || "User"}</span>
+                  <span className="truncate max-w-[120px]">
+                    {(() => {
+                      let name = currentUser?.fullName || "User";
+                      if (name.toLowerCase().includes("reachabhishek")) return "Abhishek";
+                      if (name.includes("@")) return name.split("@")[0];
+                      return name;
+                    })()}
+                  </span>
                 </span>
                 <span className="text-xs text-slate-500 dark:text-slate-400 capitalize">
-                  {variant}
+                  {currentUser?.role === "super_admin" ? "Super Admin" : currentUser?.role || variant}
                 </span>
               </div>
               <Avatar
                 src={currentUser?.avatarUrl}
                 alt={currentUser?.fullName || "User"}
-                fallback={currentUser?.fullName?.charAt(0) || "U"}
+                fallback={(() => {
+                  let name = currentUser?.fullName || "User";
+                  if (name.toLowerCase().includes("reachabhishek")) return "A";
+                  return name.charAt(0).toUpperCase();
+                })()}
                 className="h-8 w-8 ring-2 ring-primary-500/10"
               />
               <Button
