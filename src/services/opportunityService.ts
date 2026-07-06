@@ -28,13 +28,22 @@ export const opportunityService = {
     const activeTenders = await tenderService.getTenders('active');
     const mappedTenders = activeTenders.map(mapTenderToOpportunity);
     
-    // Deduplicate tenders to ensure we don't return DB opportunities twice
-    // (since tenderService also fetches from the opportunities table)
-    const standardOppIds = new Set(standardOpps.map(o => o.id));
-    const uniqueMappedTenders = mappedTenders.filter(t => !standardOppIds.has(t.id));
-    
     // Retrieve manual in-memory opportunities
     const localOpps = getLocalOpportunities();
+
+    // Deduplicate tenders to ensure we don't return DB opportunities twice
+    // (since tenderService also fetches from the opportunities table)
+    // We also deduplicate by title, because if a Lead creates an Opportunity from a Tender,
+    // they will have different IDs but the same title, causing duplicates in the UI.
+    const standardOppIds = new Set(standardOpps.map(o => o.id));
+    const existingTitles = new Set([
+      ...standardOpps.map(o => o.title.trim().toLowerCase()),
+      ...localOpps.map(o => o.title.trim().toLowerCase())
+    ]);
+
+    const uniqueMappedTenders = mappedTenders.filter(t => 
+      !standardOppIds.has(t.id) && !existingTitles.has(t.title.trim().toLowerCase())
+    );
     
     // Return merged lists sorted by created date
     return [...uniqueMappedTenders, ...standardOpps, ...localOpps].sort((a, b) => 
