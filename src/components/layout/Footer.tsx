@@ -54,6 +54,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link to="/login?role=super_admin" className="text-sm font-medium text-indigo-400 hover:text-indigo-300 hover:underline decoration-indigo-400/50 underline-offset-4 transition-all inline-flex items-center gap-1.5 group">
+                  <Shield className="h-3.5 w-3.5" /> Super Admin
+                </Link>
+              </li>
+              <li>
                 <Link to="/the-lead" className="text-sm text-slate-400 hover:text-white hover:underline decoration-indigo-500/50 underline-offset-4 transition-all inline-flex items-center gap-1.5 group">
                   The Lead Portal <ArrowUpRight className="h-3.5 w-3.5 text-slate-500 group-hover:text-indigo-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </Link>

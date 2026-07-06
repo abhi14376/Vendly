@@ -40,7 +40,11 @@ import { Badge } from "@/components/ui/Badge";
 import { Card, CardContent } from "@/components/ui/Card";
 import { toast } from "sonner";
 
+import { useAuthStore } from "@/store/authStore";
+
 export function AdminOpportunitiesPage() {
+  const currentUser = useAuthStore((state) => state.currentUser);
+  const isSuperAdmin = currentUser?.role === "super_admin";
   const [searchParams, setSearchParams] = useSearchParams();
   const activeTab = searchParams.get("tab") || "new-tenders";
   const navigate = useNavigate();
@@ -99,7 +103,7 @@ export function AdminOpportunitiesPage() {
   }, [activeTab, stateFilter, deptFilter, categoryFilter, minBudget, maxBudget, searchTerm]);
 
   // Submenu configuration
-  const tabs = [
+  const allTabs = [
     { id: "new-tenders", label: "New Tenders", count: tenders.filter(t => t.status === "new").length },
     { id: "active-tenders", label: "Active Tenders", count: tenders.filter(t => t.status === "active").length },
     { id: "closing-soon", label: "Closing Soon", count: tenders.filter(t => {
@@ -112,6 +116,10 @@ export function AdminOpportunitiesPage() {
     { id: "state-analytics", label: "State Analytics" },
     { id: "vendor-matches", label: "Vendor Matches", count: matches.length }
   ];
+
+  const tabs = isSuperAdmin 
+    ? allTabs 
+    : allTabs.filter(t => ["new-tenders", "active-tenders", "closing-soon", "corrigendum", "awarded-contracts"].includes(t.id));
 
   // Unique lists for filter dropdowns
   const filterOptions = useMemo(() => {

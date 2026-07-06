@@ -45,6 +45,22 @@ export const adminNavigation: NavigationItem[] = [
       { href: "/admin/opportunities?tab=closing-soon", label: "Closing Soon" },
       { href: "/admin/opportunities?tab=corrigendum", label: "Corrigendum" },
       { href: "/admin/opportunities?tab=awarded-contracts", label: "Awarded Contracts" },
+    ]
+  }
+];
+
+export const superAdminNavigation: NavigationItem[] = [
+  { href: "/admin", label: "Dashboard", icon: Home },
+  { 
+    href: "/admin/opportunities", 
+    label: "Opportunities", 
+    icon: BriefcaseBusiness,
+    children: [
+      { href: "/admin/opportunities?tab=new-tenders", label: "New Tenders" },
+      { href: "/admin/opportunities?tab=active-tenders", label: "Active Tenders" },
+      { href: "/admin/opportunities?tab=closing-soon", label: "Closing Soon" },
+      { href: "/admin/opportunities?tab=corrigendum", label: "Corrigendum" },
+      { href: "/admin/opportunities?tab=awarded-contracts", label: "Awarded Contracts" },
       { href: "/admin/opportunities?tab=department-analytics", label: "Department Analytics" },
       { href: "/admin/opportunities?tab=state-analytics", label: "State Analytics" },
       { href: "/admin/opportunities?tab=vendor-matches", label: "Vendor Matches" },

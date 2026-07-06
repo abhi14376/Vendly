@@ -1,6 +1,11 @@
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
-import { adminNavigation } from "@/config/navigation";
+import { adminNavigation, superAdminNavigation } from "@/config/navigation";
+import { useAuthStore } from "@/store/authStore";
 
 export function AdminLayout() {
-  return <DashboardLayout label="Admin portal" navigation={adminNavigation} variant="admin" />;
+  const currentUser = useAuthStore((state) => state.currentUser);
+  const nav = currentUser?.role === "super_admin" ? superAdminNavigation : adminNavigation;
+  const label = currentUser?.role === "super_admin" ? "Super Admin portal" : "Admin portal";
+  
+  return <DashboardLayout label={label} navigation={nav} variant="admin" />;
 }
