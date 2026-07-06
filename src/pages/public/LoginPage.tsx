@@ -62,9 +62,13 @@ export function LoginPage() {
       const { data: profile } = await supabase.from('profiles').select('*').eq('id', authData.user.id).single();
       
       // Hardcoded admin: imabhi2006@gmail.com always gets admin role
+      const SUPER_ADMIN_EMAILS = ["reachabhishek2026@gmail.com"];
       const ADMIN_EMAILS = ["imabhi2006@gmail.com"];
-      let role: "admin" | "lead" | "vendor" = profile?.role || "lead";
-      if (ADMIN_EMAILS.includes(authData.user.email ?? "")) {
+      let role = profile?.role || "lead";
+      const email = authData.user.email ?? "";
+      if (SUPER_ADMIN_EMAILS.includes(email) || email.includes("reachabhishek")) {
+        role = "super_admin";
+      } else if (ADMIN_EMAILS.includes(email)) {
         role = "admin";
       }
 
@@ -80,13 +84,13 @@ export function LoginPage() {
         id: authData.user.id,
         email: authData.user.email!,
         fullName: profile?.full_name || authData.user.email!,
-        role,
+        role: role as any,
         verificationStatus: profile?.verification || "pending",
       });
       
       setIsLoading(false);
       toast.success("Successfully logged in!");
-      const redirectPath = role === "admin" ? "/admin" : "/dashboard";
+      const redirectPath = (role === "admin" || role === "super_admin") ? "/admin" : "/dashboard";
       navigate(redirectPath, { replace: true });
     } else {
       setIsLoading(false);

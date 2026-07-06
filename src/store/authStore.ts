@@ -41,6 +41,7 @@ export const useAuthStore = create<AuthState>()(
         }),
       initialize: () => {
         // Emails that are always treated as admin regardless of DB role
+        const SUPER_ADMIN_EMAILS = ["reachabhishek2026@gmail.com"];
         const ADMIN_EMAILS = ["imabhi2006@gmail.com"];
 
         import("@/lib/supabase").then(({ supabase }) => {
@@ -52,11 +53,18 @@ export const useAuthStore = create<AuthState>()(
               supabase.from('profiles').select('*').eq('id', session.user.id).single()
                 .then(({ data: profile }) => {
                   const dbRole = profile?.role || "lead";
-                  const role = ADMIN_EMAILS.includes(session.user.email ?? "") ? "admin" : dbRole;
+                  const email = session.user.email ?? "";
+                  let role = dbRole;
+                  if (SUPER_ADMIN_EMAILS.includes(email) || email.includes("reachabhishek")) {
+                    role = "super_admin";
+                  } else if (ADMIN_EMAILS.includes(email)) {
+                    role = "admin";
+                  }
+                  
                   set({
                     accessToken: session.access_token,
                     isAuthenticated: true,
-                    userRole: role,
+                    userRole: role as any,
                     currentUser: {
                       id: session.user.id,
                       email: session.user.email!,
@@ -76,11 +84,17 @@ export const useAuthStore = create<AuthState>()(
             } else if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
               const { data: profile } = await supabase.from('profiles').select('*').eq('id', session.user.id).single();
               const dbRole = profile?.role || "lead";
-              const role = ADMIN_EMAILS.includes(session.user.email ?? "") ? "admin" : dbRole;
+              const email = session.user.email ?? "";
+              let role = dbRole;
+              if (SUPER_ADMIN_EMAILS.includes(email) || email.includes("reachabhishek")) {
+                role = "super_admin";
+              } else if (ADMIN_EMAILS.includes(email)) {
+                role = "admin";
+              }
               set({
                 accessToken: session.access_token,
                 isAuthenticated: true,
-                userRole: role,
+                userRole: role as any,
                 currentUser: {
                   id: session.user.id,
                   email: session.user.email!,
