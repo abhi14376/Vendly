@@ -28,11 +28,16 @@ export const opportunityService = {
     const activeTenders = await tenderService.getTenders('active');
     const mappedTenders = activeTenders.map(mapTenderToOpportunity);
     
+    // Deduplicate tenders to ensure we don't return DB opportunities twice
+    // (since tenderService also fetches from the opportunities table)
+    const standardOppIds = new Set(standardOpps.map(o => o.id));
+    const uniqueMappedTenders = mappedTenders.filter(t => !standardOppIds.has(t.id));
+    
     // Retrieve manual in-memory opportunities
     const localOpps = getLocalOpportunities();
     
     // Return merged lists sorted by created date
-    return [...mappedTenders, ...standardOpps, ...localOpps].sort((a, b) => 
+    return [...uniqueMappedTenders, ...standardOpps, ...localOpps].sort((a, b) => 
       new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     );
   },
