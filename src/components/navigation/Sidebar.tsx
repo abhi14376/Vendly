@@ -19,18 +19,18 @@ export function Sidebar({ navigation, variant }: SidebarProps) {
 
   return (
     <aside
-      className={`fixed inset-y-0 left-0 z-drawer w-[280px] -translate-x-full transition-transform lg:relative lg:translate-x-0 h-full ${
+      className={`fixed inset-y-0 left-0 z-drawer w-[280px] -translate-x-full p-4 transition-transform lg:sticky lg:top-4 lg:h-[calc(100vh-32px)] lg:translate-x-0 ${
         mobileMenuOpen ? "translate-x-0" : ""
       } ${sidebarCollapsed ? "lg:w-[88px]" : "lg:w-[280px]"}`}
       aria-label={`${variant} navigation`}
     >
       <div
-        className={`flex h-full flex-col rounded-2xl border shadow-lg backdrop-blur-xl transition-all duration-300 p-4
-          bg-indigo-50/60 border-indigo-200/60 dark:bg-indigo-950/40 dark:border-indigo-800/50 text-slate-900 dark:text-white
+        className={`flex h-full flex-col rounded-2xl border shadow-xl backdrop-blur-2xl transition-all duration-300 p-4
+          bg-white/40 border-white/60 dark:bg-slate-900/40 dark:border-slate-700/50 text-slate-900 dark:text-white
         `}
       >
         <div className="flex items-center justify-between gap-3">
-          <BrandLogo compact={sidebarCollapsed} inverse={!isAdmin} />
+          <BrandLogo compact={sidebarCollapsed} />
           <Button
             type="button"
             variant="ghost"
@@ -57,8 +57,8 @@ export function Sidebar({ navigation, variant }: SidebarProps) {
                   className={({ isActive }) =>
                     `flex min-h-11 items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition-all duration-300 ${
                       isActive || (hasChildren && isParentActive)
-                        ? "bg-primary-600 text-white shadow-md"
-                        : "text-slate-700 hover:bg-indigo-100/50 dark:text-slate-300 dark:hover:bg-indigo-900/50 hover:text-primary-700 dark:hover:text-primary-300"
+                        ? "bg-primary-600 text-white shadow-md shadow-primary-500/20"
+                        : "text-slate-700 hover:bg-white/60 hover:text-primary-600 dark:text-slate-300 dark:hover:bg-primary-900/30 dark:hover:text-primary-400"
                     } ${sidebarCollapsed ? "lg:justify-center" : ""}`
                   }
                 >
@@ -67,7 +67,7 @@ export function Sidebar({ navigation, variant }: SidebarProps) {
                 </NavLink>
 
                 {hasChildren && !sidebarCollapsed && (
-                  <div className="pl-4 flex flex-col gap-1 mt-1 border-l border-slate-200 dark:border-slate-800 ml-5">
+                  <div className="pl-4 flex flex-col gap-1 mt-1 border-l border-slate-200/50 dark:border-slate-700/50 ml-5">
                     {item.children!.map((child) => {
                       const isChildActive = location.pathname + location.search === child.href || 
                                           (location.search === "" && child.href.endsWith("?tab=new-tenders") && location.pathname === "/admin/opportunities");
@@ -76,10 +76,10 @@ export function Sidebar({ navigation, variant }: SidebarProps) {
                           key={child.href}
                           to={child.href}
                           onClick={closeMobileMenu}
-                          className={`text-xs py-2 px-2.5 rounded-md transition-all duration-200 ${
+                          className={`text-xs py-2 px-2.5 rounded-lg transition-all duration-300 ${
                             isChildActive
-                              ? "bg-slate-100 text-primary-600 font-semibold shadow-sm dark:bg-slate-850 dark:text-primary-400"
-                              : "text-slate-500 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800/40"
+                              ? "bg-white/70 text-primary-600 font-bold shadow-sm dark:bg-primary-900/40 dark:text-primary-400"
+                              : "text-slate-500 hover:text-primary-600 hover:bg-white/50 hover:font-medium dark:text-slate-400 dark:hover:text-primary-400 dark:hover:bg-primary-900/20"
                           }`}
                         >
                           {child.label}
