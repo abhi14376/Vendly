@@ -4,7 +4,7 @@ interface BrandLogoProps {
 }
 
 export function BrandLogo({ compact = false, inverse = false }: BrandLogoProps) {
-  const commonClasses = `h-10 w-auto object-contain scale-[6] origin-left ${compact ? 'w-10 object-left' : ''}`;
+  const commonClasses = `h-10 w-auto object-contain scale-[4.8] origin-left ${compact ? 'w-10 object-left' : ''}`;
   const commonStyles = compact ? { objectPosition: 'left', width: '40px', objectFit: 'cover' } as const : {};
 
   if (inverse) {
