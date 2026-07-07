@@ -5,15 +5,13 @@ interface BrandLogoProps {
 
 export function BrandLogo({ compact = false, inverse = false }: BrandLogoProps) {
   return (
-    <span className="inline-flex items-center gap-3">
-      <span className="grid size-10 place-items-center rounded-md bg-primary-600 text-base font-bold text-white">
-        V
-      </span>
-      {!compact && (
-        <span className={`text-lg font-bold ${inverse ? "text-white" : "text-slate-900 dark:text-white"}`}>
-          BidTracker
-        </span>
-      )}
+    <span className="inline-flex items-center">
+      <img 
+        src="/logo.png" 
+        alt="BidTracker" 
+        className={`h-10 w-auto object-contain ${compact ? 'w-10 object-left' : ''} ${inverse ? 'brightness-0 invert' : ''}`}
+        style={compact ? { objectPosition: 'left', width: '40px', objectFit: 'cover' } : {}}
+      />
     </span>
   );
 }

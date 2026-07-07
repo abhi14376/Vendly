@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { Github, Linkedin, Twitter, Globe, ArrowUpRight, Shield, Heart } from "lucide-react";
+import { BrandLogo } from "@/components/navigation/BrandLogo";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -18,11 +19,10 @@ export function Footer() {
           
           {/* Column 1: Brand details */}
           <div className="space-y-5">
-            <Link to="/" className="flex items-center gap-2.5 font-bold text-xl text-white group w-fit">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform duration-300">
-                <Shield className="h-5 w-5" />
+            <Link to="/" className="group w-fit">
+              <div className="group-hover:scale-105 transition-transform duration-300">
+                <BrandLogo inverse />
               </div>
-              <span className="tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">BidTracker</span>
             </Link>
             <p className="text-sm text-slate-400 leading-relaxed max-w-xs">
               A verification-first B2B marketplace digitizing project procurement, removing operational friction, and establishing absolute trust.
