@@ -8,10 +8,29 @@ import { ProtectedRoute } from "@/routes/ProtectedRoute";
 import { RoleRoute } from "@/routes/RoleRoute";
 import { PageLoader } from "@/components/ui/PageLoader";
 
-// Lazy loading helper for named exports
+// Lazy loading helper for named exports with chunk failure recovery
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const lazyImport = (importFunc: () => Promise<any>, exportName: string) => 
-  lazy(() => importFunc().then(module => ({ default: module[exportName] })));
+  lazy(() => 
+    importFunc()
+      .then((module) => {
+        // Clear the reload flag on successful load so future deployment chunks can trigger a reload again
+        sessionStorage.removeItem("chunk_failed_reload");
+        return { default: module[exportName] };
+      })
+      .catch((error) => {
+        // If a new deployment occurred, old chunks 404. Force a hard reload to fetch the new index.html.
+        const isChunkError = error?.message?.includes("Failed to fetch dynamically imported module") || 
+                             error?.message?.includes("Importing a module script failed");
+                             
+        if (isChunkError && !sessionStorage.getItem("chunk_failed_reload")) {
+          sessionStorage.setItem("chunk_failed_reload", "true");
+          window.location.reload();
+        }
+        
+        throw error;
+      })
+  );
 
 // Helper to wrap lazy components in Suspense
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
