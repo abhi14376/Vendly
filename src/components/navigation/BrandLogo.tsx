@@ -9,8 +9,8 @@ export function BrandLogo({ compact = false, inverse = false }: BrandLogoProps) 
       <img 
         src="/logo.png" 
         alt="BidTracker" 
-        className={`h-12 w-auto object-contain scale-[1.7] origin-left ${compact ? 'w-12 object-left' : ''} ${inverse ? 'brightness-0 invert' : ''}`}
-        style={compact ? { objectPosition: 'left', width: '48px', objectFit: 'cover' } : {}}
+        className={`h-10 w-auto object-contain scale-[1.3] origin-left ${compact ? 'w-10 object-left' : ''} ${inverse ? 'brightness-0 invert' : ''}`}
+        style={compact ? { objectPosition: 'left', width: '40px', objectFit: 'cover' } : {}}
       />
     </span>
   );
